@@ -5,6 +5,7 @@ import 'package:webdir_app/screen/annuaire_detail.dart';
 import 'package:webdir_app/models/service.dart';
 import 'package:webdir_app/models/departement.dart';
 import 'package:webdir_app/widget/filter_dialog.dart';
+import 'package:webdir_app/widget/search_name.dart';
 
 class AnnuaireMaster extends StatefulWidget {
   @override
@@ -18,6 +19,7 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
   List<Departement> departements;
   String? selectedService;
   String? selectedDepartement;
+  TextEditingController searchController = TextEditingController();
 
   _AnnuaireMasterState()
       : entrees = DataGenerator().generateEntrees(10),
@@ -39,7 +41,14 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
             selectedDepartement!.isEmpty ||
             entree.departements
                 .any((d) => d.nom.contains(selectedDepartement!));
-        return matchesService && matchesDepartement;
+        final matchesName = searchController.text.isEmpty ||
+            entree.nom
+                .toLowerCase()
+                .contains(searchController.text.toLowerCase()) ||
+            entree.prenom
+                .toLowerCase()
+                .contains(searchController.text.toLowerCase());
+        return matchesService && matchesDepartement && matchesName;
       }).toList();
     });
   }
@@ -48,6 +57,7 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
     setState(() {
       selectedService = null;
       selectedDepartement = null;
+      searchController.clear();
       filteredEntrees = entrees;
     });
   }
@@ -91,23 +101,35 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: filteredEntrees.length,
-        itemBuilder: (context, index) {
-          var entree = filteredEntrees[index];
-          return ListTile(
-            title: Text('${entree.prenom} ${entree.nom}'),
-            subtitle: Text(
-              'Fonction: ${entree.fonction}\nBureau: ${entree.numBureau}',
+      body: Column(
+        children: [
+          SearchName(
+            controller: searchController,
+            onChanged: (value) {
+              filterEntrees();
+            },
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: filteredEntrees.length,
+              itemBuilder: (context, index) {
+                var entree = filteredEntrees[index];
+                return ListTile(
+                  title: Text('${entree.prenom} ${entree.nom}'),
+                  subtitle: Text(
+                    'Fonction: ${entree.fonction}\nBureau: ${entree.numBureau}',
+                  ),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AnnuaireDetail(entree: entree),
+                    ),
+                  ),
+                );
+              },
             ),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AnnuaireDetail(entree: entree),
-              ),
-            ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
