@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../models/personne.dart';
+import '../models/entree.dart';
 
 class AnnuairePreview extends StatelessWidget {
-  final Personne personne;
+  final Entree personne;
 
   AnnuairePreview({required this.personne});
 
@@ -10,7 +10,7 @@ class AnnuairePreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(personne.nom),
-      subtitle: Text(personne.telephoneMobile),
+      subtitle: Text(personne.numMobile),
     );
   }
 }

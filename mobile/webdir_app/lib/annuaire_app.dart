@@ -10,10 +10,10 @@ class _AnnuaireAppState extends State<AnnuaireApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ToDo List',
+      title: 'Annuaire',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('ToDo List'),
+          title: Text('Annuaire'),
         ),
         body: AnnuaireMaster(),
       ),
