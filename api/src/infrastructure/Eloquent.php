@@ -1,6 +1,6 @@
 <?php
 
-namespace infrastructure;
+namespace api\infrastructure;
 
 use Illuminate\Database\Capsule\Manager as DB;
 

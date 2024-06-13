@@ -1,6 +1,6 @@
 <?php
 
-use infrastructure\Eloquent;
+use api\infrastructure\Eloquent;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
