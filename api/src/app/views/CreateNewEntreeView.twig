@@ -1,0 +1,22 @@
+{% extends 'SkeletonView.twig' %}
+
+{% block content %}
+    <h1>Créer une nouvelle Entrée</h1>
+    <form action="{{ url_for('entrees.create') }}" method="post">
+        <label for="nom">Nom</label>
+        <input type="text" name="nom" id="nom">
+        <label for="prenom">Prénom</label>
+        <input type="text" name="prenom" id="prenom">
+        <label for="fonction">Fonction</label>
+        <input type="text" name="fonction" id="fonction">
+        <label for="num_bureau">Numéro de bureau</label>
+        <input type="text" name="num_bureau" id="num_bureau">
+        <label for="num_fixe">Numéro de téléphone fixe</label>
+        <input type="text" name="num_fixe" id="num_fixe">
+        <label for="num_mobile">Numéro de téléphone mobile</label>
+        <input type="text" name="num_mobile" id="num_mobile">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email">
+        <button type="submit">Ajouter</button>
+    </form>
+{% endblock %}

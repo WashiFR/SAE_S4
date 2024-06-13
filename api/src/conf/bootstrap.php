@@ -24,7 +24,7 @@ $app->add(TwigMiddleware::create($app, $twig));
 
 $app->addRoutingMiddleware();
 $app->addErrorMiddleware(true, false, false);
-$app->setBasePath('/api/public');
+//$app->setBasePath('/api/public');
 
 $app=(require_once __DIR__ . '/routes.php')($app);
 

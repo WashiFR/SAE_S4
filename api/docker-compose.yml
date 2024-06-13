@@ -1,5 +1,5 @@
 networks:
-  gift:
+  webdir:
     driver: bridge
 
 services:
@@ -7,35 +7,35 @@ services:
     image: canals/php:latest
     container_name: php-container
     ports:
-      - ":80"
-    volumes:
-      - "./public:/var/www/html"
-      - "./src:/var/www/src"
+      - "14200:80"
     depends_on:
-      - mariadb
+      - mysql
+    volumes:
+      - ./public:/var/www/html
+      - ./src:/var/www/src
     networks:
-      - gift
+      - webdir
 
-  mariadb:
+  mysql:
     image: mariadb:latest
-    container_name: mariadb-container
+    container_name: mysql-container
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
-      - ":3306"
+      - "14201:3306"
     networks:
-      - gift
+      - webdir
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin-container
     environment:
-      PMA_HOST: mariadb-container
+      PMA_HOST: mysql-container
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - ":80"
+      - "14202:80"
     networks:
-      - gift
+      - webdir

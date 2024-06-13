@@ -43,6 +43,10 @@ class __TwigTemplate_b7dafc255dfa3ead1e8d14ff7344ac26 extends Template
         // line 5
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Slim\Views\TwigRuntimeExtension')->urlFor("home"), "html", null, true);
         yield "\">Accueil</a></li>
+            <li><a href=\"";
+        // line 6
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Slim\Views\TwigRuntimeExtension')->urlFor("entrees.create"), "html", null, true);
+        yield "\">Nouvelle entrée</a></li>
         </ul>
     </nav>
 </header>";
@@ -70,7 +74,7 @@ class __TwigTemplate_b7dafc255dfa3ead1e8d14ff7344ac26 extends Template
      */
     public function getDebugInfo()
     {
-        return array (  44 => 5,  38 => 1,);
+        return array (  48 => 6,  44 => 5,  38 => 1,);
     }
 
     public function getSourceContext()

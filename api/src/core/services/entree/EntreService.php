@@ -26,4 +26,18 @@ class EntreService implements IEntreeService
         }
         return $sql->toArray();
     }
+
+    public function createEntree(array $data): int
+    {
+        $entree = new Entree();
+        $entree->nom = $data['nom'];
+        $entree->prenom = $data['prenom'];
+        $entree->fonction = $data['fonction'];
+        $entree->num_bureau = $data['num_bureau'];
+        $entree->num_fixe = $data['num_fixe'];
+        $entree->num_mobile = $data['num_mobile'];
+        $entree->email = $data['email'];
+        $entree->save();
+        return $entree->id;
+    }
 }

@@ -35,7 +35,7 @@ class __TwigTemplate_772b45cacf20fa26707192a33683c72f extends Template
     {
         $macros = $this->macros;
         yield "<footer>
-    <p>JEANDIDIER Clément - SZEZCPANSKI Gaëtan - WEIER Loris</p>
+    <p>JEANDIDIER Clément - SZEZCPANSKI Gaëtan - WEIER Loris - DEKERSABIEC Thomas</p>
 </footer>";
         return; yield '';
     }
