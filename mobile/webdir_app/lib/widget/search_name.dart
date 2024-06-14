@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SearchName extends StatelessWidget {
   final TextEditingController controller;
-  final ValueChanged<String> onChanged;
+  final Function(String) onChanged;
 
   SearchName({required this.controller, required this.onChanged});
 
@@ -14,7 +14,6 @@ class SearchName extends StatelessWidget {
         controller: controller,
         decoration: InputDecoration(
           labelText: 'Rechercher par nom',
-          prefixIcon: Icon(Icons.search),
           border: OutlineInputBorder(),
         ),
         onChanged: onChanged,

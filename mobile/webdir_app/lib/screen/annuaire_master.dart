@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:webdir_app/data_generator.dart';
+import 'package:webdir_app/data/data_generator.dart';
 import 'package:webdir_app/models/entree.dart';
 import 'package:webdir_app/screen/annuaire_detail.dart';
 import 'package:webdir_app/models/service.dart';
 import 'package:webdir_app/models/departement.dart';
 import 'package:webdir_app/widget/filter_dialog.dart';
 import 'package:webdir_app/widget/search_name.dart';
+import 'package:webdir_app/widget/initial_circle.dart';
 
 class AnnuaireMaster extends StatefulWidget {
   @override
@@ -89,11 +90,15 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
     });
   }
 
+  String getInitials(String prenom, String nom) {
+    return "${prenom[0].toUpperCase()}${nom[0].toUpperCase()}";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Annuaire en ligne'),
+        title: Text('Annuaire'),
         actions: [
           IconButton(
             icon: Icon(Icons.filter_list),
@@ -114,17 +119,25 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
               itemCount: filteredEntrees.length,
               itemBuilder: (context, index) {
                 var entree = filteredEntrees[index];
-                return ListTile(
-                  title: Text('${entree.prenom} ${entree.nom}'),
-                  subtitle: Text(
-                    'Fonction: ${entree.fonction}\nBureau: ${entree.numBureau}',
-                  ),
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AnnuaireDetail(entree: entree),
+                return Column(
+                  children: [
+                    ListTile(
+                      leading: InitialCircle(
+                        initials: getInitials(entree.prenom, entree.nom),
+                      ),
+                      title: Text('${entree.prenom} ${entree.nom}'),
+                      subtitle: Text(
+                        'Fonction: ${entree.fonction}\nBureau: ${entree.numBureau}',
+                      ),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AnnuaireDetail(entree: entree),
+                        ),
+                      ),
                     ),
-                  ),
+                    Divider(color: Colors.black),
+                  ],
                 );
               },
             ),

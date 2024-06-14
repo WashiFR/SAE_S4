@@ -12,9 +12,6 @@ class _AnnuaireAppState extends State<AnnuaireApp> {
     return MaterialApp(
       title: 'Annuaire',
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Annuaire'),
-        ),
         body: AnnuaireMaster(),
       ),
     );
