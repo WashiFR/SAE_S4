@@ -7,6 +7,7 @@ import 'package:webdir_app/models/departement.dart';
 import 'package:webdir_app/widget/filter_dialog.dart';
 import 'package:webdir_app/widget/search_name.dart';
 import 'package:webdir_app/widget/initial_circle.dart';
+import 'package:webdir_app/widget/sort_order_widget.dart'; // Importez le nouveau widget
 
 class AnnuaireMaster extends StatefulWidget {
   @override
@@ -20,6 +21,7 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
   List<Departement> departements;
   String? selectedService;
   String? selectedDepartement;
+  String sortOrder = 'asc';
   TextEditingController searchController = TextEditingController();
 
   _AnnuaireMasterState()
@@ -27,9 +29,17 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
         filteredEntrees = [],
         services = [],
         departements = [] {
+    // Initialisation des listes sans utiliser setState()
     filteredEntrees = entrees;
     services = entrees.expand((e) => e.services).toSet().toList();
     departements = entrees.expand((e) => e.departements).toSet().toList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Les appels setState sont déplacés ici car l'état peut être modifié après la création du widget
+    filterEntrees();
   }
 
   void filterEntrees() {
@@ -51,6 +61,19 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
                 .contains(searchController.text.toLowerCase());
         return matchesService && matchesDepartement && matchesName;
       }).toList();
+      sortEntrees();
+    });
+  }
+
+  void sortEntrees() {
+    setState(() {
+      filteredEntrees.sort((a, b) {
+        int cmp = a.nom.compareTo(b.nom);
+        if (cmp == 0) {
+          cmp = a.prenom.compareTo(b.prenom);
+        }
+        return sortOrder == 'asc' ? cmp : -cmp;
+      });
     });
   }
 
@@ -60,6 +83,7 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
       selectedDepartement = null;
       searchController.clear();
       filteredEntrees = entrees;
+      sortEntrees();
     });
   }
 
@@ -103,6 +127,15 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
           IconButton(
             icon: Icon(Icons.filter_list),
             onPressed: openFilterDialog,
+          ),
+          SortOrderWidget(
+            sortOrder: sortOrder,
+            onSortOrderChanged: (value) {
+              setState(() {
+                sortOrder = value;
+                sortEntrees();
+              });
+            },
           ),
         ],
       ),
