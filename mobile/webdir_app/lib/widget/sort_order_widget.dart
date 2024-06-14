@@ -22,7 +22,7 @@ class SortOrderWidget extends StatelessWidget {
           child: Text('Tri Descendant'),
         ),
       ],
-      icon: Icon(Icons.sort),
+      icon: Icon(Icons.sort, color: Color.fromARGB(255, 223, 223, 223)),
     );
   }
 }

@@ -29,7 +29,6 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
         filteredEntrees = [],
         services = [],
         departements = [] {
-    // Initialisation des listes sans utiliser setState()
     filteredEntrees = entrees;
     services = entrees.expand((e) => e.services).toSet().toList();
     departements = entrees.expand((e) => e.departements).toSet().toList();
@@ -38,7 +37,6 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
   @override
   void initState() {
     super.initState();
-    // Les appels setState sont déplacés ici car l'état peut être modifié après la création du widget
     filterEntrees();
   }
 
@@ -122,10 +120,13 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Annuaire'),
+        title: Text('Annuaire',
+            style: TextStyle(color: Color.fromARGB(255, 223, 223, 223))),
+        backgroundColor: Colors.grey[900],
         actions: [
           IconButton(
-            icon: Icon(Icons.filter_list),
+            icon: Icon(Icons.filter_list,
+                color: Color.fromARGB(255, 223, 223, 223)),
             onPressed: openFilterDialog,
           ),
           SortOrderWidget(
@@ -158,10 +159,13 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
                       leading: InitialCircle(
                         initials: getInitials(entree.prenom, entree.nom),
                       ),
-                      title: Text('${entree.prenom} ${entree.nom}'),
+                      title: Text('${entree.prenom} ${entree.nom}',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 223, 223, 223))),
                       subtitle: Text(
-                        'Fonction: ${entree.fonction}\nBureau: ${entree.numBureau}',
-                      ),
+                          'Fonction: ${entree.fonction}\nBureau: ${entree.numBureau}',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 171, 176, 180))),
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -169,7 +173,7 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
                         ),
                       ),
                     ),
-                    Divider(color: Colors.black),
+                    Divider(color: const Color.fromARGB(255, 90, 90, 90)),
                   ],
                 );
               },
@@ -177,6 +181,7 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
           ),
         ],
       ),
+      backgroundColor: Colors.grey[900],
     );
   }
 }

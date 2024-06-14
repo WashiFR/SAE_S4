@@ -10,7 +10,6 @@ class _AnnuaireAppState extends State<AnnuaireApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Annuaire',
       home: Scaffold(
         body: AnnuaireMaster(),
       ),

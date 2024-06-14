@@ -24,31 +24,56 @@ class FilterDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Filtrer les entrées'),
+      backgroundColor: Colors.grey[900],
+      title: const Text('Filtrer les entrées',
+          style: TextStyle(
+            color: Color.fromARGB(255, 223, 223, 223),
+          )),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           DropdownButton<String>(
             value: selectedService,
-            hint: Text('Sélectionner un service'),
+            hint: const Text(
+              'Service',
+              style: TextStyle(
+                color: Color.fromARGB(255, 223, 223, 223),
+                backgroundColor: Color.fromARGB(255, 33, 33, 33),
+              ),
+            ),
             items: services.map((service) {
               return DropdownMenuItem<String>(
                 value: service.nom,
-                child: Text(service.nom),
+                child: Text(service.nom,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Color.fromARGB(255, 223, 223, 223),
+                    )),
               );
             }).toList(),
             onChanged: onServiceChanged,
+            dropdownColor: Colors.grey[900],
           ),
           DropdownButton<String>(
             value: selectedDepartement,
-            hint: Text('Sélectionner un département'),
+            hint: const Text(
+              'Département',
+              style: TextStyle(
+                color: Color.fromARGB(255, 223, 223, 223),
+              ),
+            ),
             items: departements.map((departement) {
               return DropdownMenuItem<String>(
                 value: departement.nom,
-                child: Text(departement.nom),
+                child: Text(departement.nom,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Color.fromARGB(255, 223, 223, 223),
+                    )),
               );
             }).toList(),
             onChanged: onDepartementChanged,
+            dropdownColor: Colors.grey[900],
           ),
         ],
       ),
@@ -58,13 +83,17 @@ class FilterDialog extends StatelessWidget {
             onReset();
             Navigator.of(context).pop();
           },
-          child: Text('Réinitialiser'),
+          child: const Text('Réinitialiser',
+              style: TextStyle(color: Color.fromARGB(255, 235, 235, 235))),
         ),
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Appliquer'),
+          child: const Text(
+            'Appliquer',
+            style: TextStyle(color: Color.fromARGB(255, 235, 235, 235)),
+          ),
         ),
       ],
     );

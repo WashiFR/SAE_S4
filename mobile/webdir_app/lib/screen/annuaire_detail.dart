@@ -14,22 +14,27 @@ class AnnuaireDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${entree.prenom} ${entree.nom}'),
+        title: Text('${entree.prenom} ${entree.nom}',
+            style: const TextStyle(
+              color: Color.fromARGB(255, 223, 223, 223),
+            )),
+        backgroundColor: Colors.grey[900],
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
               child: CircleAvatar(
-                radius: 50,
+                radius: 45,
                 backgroundColor: Colors.blue,
                 child: Text(
                   getInitials(entree.prenom, entree.nom),
-                  style: TextStyle(
-                    fontSize: 40,
-                    color: Colors.white,
+                  style: const TextStyle(
+                    fontSize: 36,
+                    color: Color.fromARGB(255, 223, 223, 223),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -38,27 +43,38 @@ class AnnuaireDetail extends StatelessWidget {
             SizedBox(height: 20),
             Text(
               '${entree.prenom} ${entree.nom}',
-              style: TextStyle(
-                fontSize: 24,
+              style: const TextStyle(
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 223, 223, 223),
               ),
             ),
             SizedBox(height: 10),
-            Text(
-              'Fonction: ${entree.fonction}',
-              style: TextStyle(
-                fontSize: 18,
-              ),
+            Row(
+              children: [
+                const Icon(Icons.work,
+                    color: Color.fromARGB(255, 223, 223, 223)),
+                SizedBox(width: 10),
+                Text(
+                  entree.fonction,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 223, 223, 223),
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 20),
             Row(
               children: [
-                Icon(Icons.business),
+                const Icon(Icons.business,
+                    color: Color.fromARGB(255, 223, 223, 223)),
                 SizedBox(width: 10),
                 Text(
                   'Numéro de bureau: ${entree.numBureau}',
-                  style: TextStyle(
-                    fontSize: 18,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 223, 223, 223),
                   ),
                 ),
               ],
@@ -66,12 +82,14 @@ class AnnuaireDetail extends StatelessWidget {
             SizedBox(height: 10),
             Row(
               children: [
-                Icon(Icons.phone),
+                const Icon(Icons.phone,
+                    color: Color.fromARGB(255, 223, 223, 223)),
                 SizedBox(width: 10),
                 Text(
                   'Numéro fixe: ${entree.numFixe}',
-                  style: TextStyle(
-                    fontSize: 18,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 223, 223, 223),
                   ),
                 ),
               ],
@@ -79,12 +97,13 @@ class AnnuaireDetail extends StatelessWidget {
             SizedBox(height: 10),
             Row(
               children: [
-                Icon(Icons.phone_android),
+                const Icon(Icons.phone_android, color: Colors.white),
                 SizedBox(width: 10),
                 Text(
                   'Numéro mobile: ${entree.numMobile}',
-                  style: TextStyle(
-                    fontSize: 18,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 223, 223, 223),
                   ),
                 ),
               ],
@@ -92,49 +111,55 @@ class AnnuaireDetail extends StatelessWidget {
             SizedBox(height: 10),
             Row(
               children: [
-                Icon(Icons.email),
+                const Icon(Icons.email, color: Colors.white),
                 SizedBox(width: 10),
                 Text(
                   'Email: ${entree.email}',
-                  style: TextStyle(
-                    fontSize: 18,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 223, 223, 223),
                   ),
                 ),
               ],
             ),
             SizedBox(height: 20),
-            Text(
+            const Text(
               'Services:',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 223, 223, 223),
               ),
             ),
             for (var service in entree.services)
               Text(
                 '- ${service.nom} (${service.description})',
-                style: TextStyle(
-                  fontSize: 18,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Color.fromARGB(255, 223, 223, 223),
                 ),
               ),
             SizedBox(height: 20),
-            Text(
+            const Text(
               'Départements:',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 223, 223, 223),
               ),
             ),
             for (var departement in entree.departements)
               Text(
                 '- ${departement.nom} (${departement.description})',
-                style: TextStyle(
-                  fontSize: 18,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Color.fromARGB(255, 223, 223, 223),
                 ),
               ),
           ],
         ),
       ),
+      backgroundColor: Colors.grey[900],
     );
   }
 }
