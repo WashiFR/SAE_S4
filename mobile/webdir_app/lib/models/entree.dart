@@ -7,7 +7,7 @@ class Entree {
   final String prenom;
   final String fonction;
   final String numBureau;
-  final String? numFixe;
+  final String numFixe;
   final String numMobile;
   final String email;
   List<Service> services = [];

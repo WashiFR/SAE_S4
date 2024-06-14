@@ -6,8 +6,8 @@ import 'package:webdir_app/models/service.dart';
 import 'package:webdir_app/models/departement.dart';
 import 'package:webdir_app/widget/filter_dialog.dart';
 import 'package:webdir_app/widget/search_name.dart';
-import 'package:webdir_app/widget/initial_circle.dart';
-import 'package:webdir_app/widget/sort_order_widget.dart'; // Importez le nouveau widget
+import 'package:webdir_app/widget/sort_order_widget.dart';
+import 'package:webdir_app/screen/annuaire_preview.dart';
 
 class AnnuaireMaster extends StatefulWidget {
   @override
@@ -120,12 +120,12 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Annuaire',
+        title: const Text('Annuaire',
             style: TextStyle(color: Color.fromARGB(255, 223, 223, 223))),
-        backgroundColor: Colors.grey[900],
+        backgroundColor: Color.fromARGB(255, 46, 42, 46),
         actions: [
           IconButton(
-            icon: Icon(Icons.filter_list,
+            icon: const Icon(Icons.filter_list,
                 color: Color.fromARGB(255, 223, 223, 223)),
             onPressed: openFilterDialog,
           ),
@@ -140,47 +140,37 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          SearchName(
-            controller: searchController,
-            onChanged: (value) {
-              filterEntrees();
-            },
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: filteredEntrees.length,
-              itemBuilder: (context, index) {
-                var entree = filteredEntrees[index];
-                return Column(
-                  children: [
-                    ListTile(
-                      leading: InitialCircle(
-                        initials: getInitials(entree.prenom, entree.nom),
-                      ),
-                      title: Text('${entree.prenom} ${entree.nom}',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 223, 223, 223))),
-                      subtitle: Text(
-                          'Fonction: ${entree.fonction}\nBureau: ${entree.numBureau}',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 171, 176, 180))),
-                      onTap: () => Navigator.push(
+      body: Column(children: [
+        SearchName(
+          controller: searchController,
+          onChanged: (value) {
+            filterEntrees();
+          },
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: filteredEntrees.length,
+            itemBuilder: (context, index) {
+              var entree = filteredEntrees[index];
+              return Column(
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AnnuaireDetail(entree: entree),
-                        ),
-                      ),
+                            builder: (context) =>
+                                AnnuaireDetail(entree: entree))),
+                    child: AnnuairePreview(
+                      entree: entree,
                     ),
-                    Divider(color: const Color.fromARGB(255, 90, 90, 90)),
-                  ],
-                );
-              },
-            ),
+                  ),
+                  Divider(color: const Color.fromARGB(255, 90, 90, 90)),
+                ],
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ]),
       backgroundColor: Colors.grey[900],
     );
   }

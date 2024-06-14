@@ -12,9 +12,19 @@ class SearchName extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: TextField(
         controller: controller,
-        decoration: InputDecoration(
+        style: const TextStyle(color: Color.fromARGB(255, 223, 223, 223)),
+        decoration: const InputDecoration(
           labelText: 'Rechercher par nom',
-          border: OutlineInputBorder(),
+          labelStyle: TextStyle(color: Color.fromARGB(255, 223, 223, 223)),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
         ),
         onChanged: onChanged,
       ),

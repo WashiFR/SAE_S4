@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webdir_app/models/entree.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AnnuaireDetail extends StatelessWidget {
   final Entree entree;
@@ -8,6 +9,30 @@ class AnnuaireDetail extends StatelessWidget {
 
   String getInitials(String prenom, String nom) {
     return "${prenom[0].toUpperCase()}${nom[0].toUpperCase()}";
+  }
+
+  Future<void> _launchEmail(String email) async {
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: email,
+    );
+    if (await canLaunch(emailUri.toString())) {
+      await launch(emailUri.toString());
+    } else {
+      throw 'Could not launch $emailUri';
+    }
+  }
+
+  Future<void> _launchPhone(String phoneNumber) async {
+    final Uri phoneUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    if (await canLaunch(phoneUri.toString())) {
+      await launch(phoneUri.toString());
+    } else {
+      throw 'Could not launch $phoneUri';
+    }
   }
 
   @override
@@ -40,89 +65,126 @@ class AnnuaireDetail extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 10),
+            const Row(
+              children: [
+                Icon(Icons.work, color: Color.fromARGB(255, 233, 233, 233)),
+                SizedBox(width: 10),
+                Text(
+                  'Fonction:',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(255, 223, 223, 223),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 5),
             Text(
-              '${entree.prenom} ${entree.nom}',
+              entree.fonction,
               style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+                fontSize: 14,
                 color: Color.fromARGB(255, 223, 223, 223),
               ),
             ),
-            SizedBox(height: 10),
-            Row(
+            const SizedBox(height: 20),
+            const Divider(color: Color.fromARGB(255, 90, 90, 90)),
+            const Row(
               children: [
-                const Icon(Icons.work,
-                    color: Color.fromARGB(255, 223, 223, 223)),
+                Icon(Icons.business, color: Color.fromARGB(255, 223, 223, 223)),
                 SizedBox(width: 10),
                 Text(
-                  entree.fonction,
-                  style: const TextStyle(
+                  'Numéro de bureau:',
+                  style: TextStyle(
                     fontSize: 14,
                     color: Color.fromARGB(255, 223, 223, 223),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 20),
-            Row(
+            const SizedBox(height: 5),
+            Text(
+              entree.numBureau,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Color.fromARGB(255, 223, 223, 223),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Divider(color: const Color.fromARGB(255, 90, 90, 90)),
+            const Row(
               children: [
-                const Icon(Icons.business,
-                    color: Color.fromARGB(255, 223, 223, 223)),
+                Icon(Icons.phone, color: Color.fromARGB(255, 223, 223, 223)),
                 SizedBox(width: 10),
                 Text(
-                  'Numéro de bureau: ${entree.numBureau}',
-                  style: const TextStyle(
+                  'Numéro fixe:',
+                  style: TextStyle(
                     fontSize: 14,
                     color: Color.fromARGB(255, 223, 223, 223),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 10),
-            Row(
+            const SizedBox(height: 5),
+            Text(
+              entree.numFixe,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Color.fromARGB(255, 223, 223, 223),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Divider(color: Color.fromARGB(255, 90, 90, 90)),
+            const Row(
               children: [
-                const Icon(Icons.phone,
-                    color: Color.fromARGB(255, 223, 223, 223)),
+                Icon(Icons.phone_android, color: Colors.white),
                 SizedBox(width: 10),
                 Text(
-                  'Numéro fixe: ${entree.numFixe}',
-                  style: const TextStyle(
+                  'Numéro mobile:',
+                  style: TextStyle(
                     fontSize: 14,
                     color: Color.fromARGB(255, 223, 223, 223),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 10),
-            Row(
+            const SizedBox(height: 5),
+            Text(
+              entree.numMobile,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Color.fromARGB(255, 223, 223, 223),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Divider(color: const Color.fromARGB(255, 90, 90, 90)),
+            const Row(
               children: [
-                const Icon(Icons.phone_android, color: Colors.white),
+                Icon(Icons.email, color: Colors.white),
                 SizedBox(width: 10),
                 Text(
-                  'Numéro mobile: ${entree.numMobile}',
-                  style: const TextStyle(
+                  'Email:',
+                  style: TextStyle(
                     fontSize: 14,
                     color: Color.fromARGB(255, 223, 223, 223),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                const Icon(Icons.email, color: Colors.white),
-                SizedBox(width: 10),
-                Text(
-                  'Email: ${entree.email}',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color.fromARGB(255, 223, 223, 223),
-                  ),
+            const SizedBox(height: 5),
+            GestureDetector(
+              onTap: () => _launchEmail(entree.email),
+              child: Text(
+                entree.email,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Color.fromARGB(255, 26, 115, 189),
+                  decoration: TextDecoration.underline,
                 ),
-              ],
+              ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
+            Divider(color: const Color.fromARGB(255, 90, 90, 90)),
             const Text(
               'Services:',
               style: TextStyle(
@@ -139,7 +201,8 @@ class AnnuaireDetail extends StatelessWidget {
                   color: Color.fromARGB(255, 223, 223, 223),
                 ),
               ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
+            Divider(color: const Color.fromARGB(255, 90, 90, 90)),
             const Text(
               'Départements:',
               style: TextStyle(
@@ -152,7 +215,7 @@ class AnnuaireDetail extends StatelessWidget {
               Text(
                 '- ${departement.nom} (${departement.description})',
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   color: Color.fromARGB(255, 223, 223, 223),
                 ),
               ),
