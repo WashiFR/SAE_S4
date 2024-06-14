@@ -9,6 +9,7 @@ return function(App $app): App {
     $app->get('/', \api\app\actions\ShowHomeAction::class)->setName('home');
 
     // ### Routes des Entree ###
+    $app->get('/entrees', \api\app\actions\GetEntreesAction::class)->setName('entrees');
     $app->get('/entrees/create', \api\app\actions\CreateNewEntreeAction::class)->setName('entrees.create');
     $app->post('/entrees/create', \api\app\actions\PostNewEntreeAction::class)->setName('entrees.create');
 

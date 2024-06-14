@@ -10,7 +10,9 @@ class EntreService implements IEntreeService
     public function getEntrees(): array
     {
         try {
-            $sql = Entree::all();
+            $sql = Entree::select('id', 'nom', 'prenom', 'fonction', 'num_bureau', 'num_fixe', 'num_mobile', 'email')
+                ->orderBy('nom', 'asc')
+                ->get();
         } catch (\Exception $e) {
             throw new EntreeServiceNotFoundException('Erreur 404 : Aucune entree trouvée', 404);
         }
