@@ -2,19 +2,17 @@
 
 namespace admin\core\services\entree;
 
-use admin\core\domain\Entree;
-use admin\core\services\entree\IEntreeService;
+use admin\core\domain\entities\Entree;
 
 class EntreService implements IEntreeService
 {
     public function getEntrees(): array
     {
-//        try {
-//            $sql = Entree::all();
-//        } catch (\Exception $e) {
-//            throw new EntreeServiceNotFoundException('Erreur 404 : Aucune entree trouvée', 404);
-//        }
-        $sql = Entree::all();
+        try {
+            $sql = Entree::all();
+        } catch (\Exception $e) {
+            throw new EntreeServiceNotFoundException('Erreur 404 : Aucune entree trouvée', 404);
+        }
         return $sql->toArray();
     }
 
@@ -38,6 +36,7 @@ class EntreService implements IEntreeService
         $entree->num_fixe = $data['num_fixe'];
         $entree->num_mobile = $data['num_mobile'];
         $entree->email = $data['email'];
+        // TODO: Ajout du Service et du Departement
         $entree->save();
         return $entree->id;
     }

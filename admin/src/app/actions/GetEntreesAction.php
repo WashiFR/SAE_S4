@@ -22,13 +22,11 @@ class GetEntreesAction extends AbstractAction
     }
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-//        try {
-//            $entrees = $this->entreeService->getEntrees();
-//        } catch (EntreeServiceNotFoundException $e) {
-//            throw new HttpNotFoundException($request, $e->getMessage());
-//        }
-
-        $entrees = $this->entreeService->getEntrees();
+        try {
+            $entrees = $this->entreeService->getEntrees();
+        } catch (EntreeServiceNotFoundException $e) {
+            throw new HttpNotFoundException($request, $e->getMessage());
+        }
 
         $view = Twig::fromRequest($request);
         return $view->render($response, $this->template, ['entrees' => $entrees]);
