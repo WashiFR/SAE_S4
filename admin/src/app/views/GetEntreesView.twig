@@ -1,0 +1,10 @@
+{% extends 'SkeletonView.twig' %}
+
+{% block content %}
+    <h1>Entrees</h1>
+    <ul>
+        {% for entree in entrees %}
+            <li>{{ entree.nom }} {{ entree.prenom }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
