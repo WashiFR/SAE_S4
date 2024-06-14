@@ -1,10 +1,10 @@
 <?php
 
-namespace api\app\actions;
+namespace admin\app\actions;
 
-use api\app\actions\AbstractAction;
-use api\core\services\entree\EntreService;
-use api\core\services\entree\IEntreeService;
+use admin\app\actions\AbstractAction;
+use admin\core\services\entree\EntreService;
+use admin\core\services\entree\IEntreeService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Views\Twig;

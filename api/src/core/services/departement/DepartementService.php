@@ -1,10 +1,10 @@
 <?php
 
-namespace api\core\services\departement;
+namespace admin\core\services\departement;
 
-use api\core\domain\Departement;
-use api\core\domain\Service;
-use api\core\services\departement\IDepartementService;
+use admin\core\domain\Departement;
+use admin\core\domain\Service;
+use admin\core\services\departement\IDepartementService;
 
 class DepartementService implements IDepartementService
 {

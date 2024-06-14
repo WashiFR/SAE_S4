@@ -1,6 +1,6 @@
 <?php
 
-namespace api\core\services\entree;
+namespace admin\core\services\entree;
 
 class EntreeServiceBadDataException extends \Exception
 {

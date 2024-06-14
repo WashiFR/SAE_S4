@@ -1,21 +1,20 @@
 <?php
 
-namespace api\core\services\entree;
+namespace admin\core\services\entree;
 
-use api\core\domain\Entree;
-use api\core\services\entree\IEntreeService;
+use admin\core\domain\Entree;
+use admin\core\services\entree\IEntreeService;
 
 class EntreService implements IEntreeService
 {
     public function getEntrees(): array
     {
-        try {
-            $sql = Entree::select('id', 'nom', 'prenom', 'fonction', 'num_bureau', 'num_fixe', 'num_mobile', 'email')
-                ->orderBy('nom', 'asc')
-                ->get();
-        } catch (\Exception $e) {
-            throw new EntreeServiceNotFoundException('Erreur 404 : Aucune entree trouvée', 404);
-        }
+//        try {
+//            $sql = Entree::all();
+//        } catch (\Exception $e) {
+//            throw new EntreeServiceNotFoundException('Erreur 404 : Aucune entree trouvée', 404);
+//        }
+        $sql = Entree::all();
         return $sql->toArray();
     }
 

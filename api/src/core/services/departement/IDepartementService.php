@@ -1,6 +1,6 @@
 <?php
 
-namespace api\core\services\departement;
+namespace admin\core\services\departement;
 
 interface IDepartementService
 {

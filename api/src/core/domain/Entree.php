@@ -1,6 +1,6 @@
 <?php
 
-namespace api\core\domain;
+namespace admin\core\domain;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,11 +12,11 @@ class Entree extends Model
 
     public function services()
     {
-        return $this->belongsToMany('api\core\domain\Service', 'entree2service', 'id_entree', 'id_service');
+        return $this->belongsToMany('admin\core\domain\Service', 'entree2service', 'id_entree', 'id_service');
     }
 
     public function departements()
     {
-        return $this->belongsToMany('api\core\domain\Departement', 'entree2departement', 'id_entree', 'id_departement');
+        return $this->belongsToMany('admin\core\domain\Departement', 'entree2departement', 'id_entree', 'id_departement');
     }
 }

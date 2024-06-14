@@ -1,6 +1,6 @@
 <?php
 
-use api\infrastructure\Eloquent;
+use admin\infrastructure\Eloquent;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
@@ -11,10 +11,7 @@ $app = AppFactory::create();
 Eloquent::init(__DIR__ . '/conf.ini');
 
 // Twig
-$twig = Twig::create(__DIR__ . '/../app/views', [
-    'cache' => __DIR__ . '/cache',
-    'auto_reload' => true
-]);
+$twig = Twig::create(__DIR__ . '/../app/views', ['cache' => false]);
 
 //$twig->getEnvironment()->addGlobal('globals', [
 //    'img_dir' => '../src/img/',
@@ -22,6 +19,7 @@ $twig = Twig::create(__DIR__ . '/../app/views', [
 
 $app->add(TwigMiddleware::create($app, $twig));
 
+$app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware();
 $app->addErrorMiddleware(true, false, false);
 

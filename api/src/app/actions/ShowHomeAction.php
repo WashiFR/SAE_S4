@@ -1,8 +1,8 @@
 <?php
 
-namespace api\app\actions;
+namespace admin\app\actions;
 
-use api\app\actions\AbstractAction;
+use admin\app\actions\AbstractAction;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Views\Twig;
