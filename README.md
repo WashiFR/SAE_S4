@@ -7,5 +7,5 @@ SAE Atelier de développement d’application web Semestre 4
 * [DEKERSABIEC Thomas](https://github.com/dekersab3u)
 
 # Docketu
-Admin : http://docketu.iutnc.univ-lorraine.fr:14200
-Api : http://docketu.iutnc.univ-lorraine.fr:14203
+* Admin : http://docketu.iutnc.univ-lorraine.fr:14200
+* Api : http://docketu.iutnc.univ-lorraine.fr:14203
