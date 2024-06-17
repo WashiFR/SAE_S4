@@ -8,7 +8,7 @@ use api\core\services\entree\EntreeService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class GetSearchEntreeAction extends AbstractAction
+class GetSearchServiceAction extends AbstractAction
 {
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
@@ -17,35 +17,27 @@ class GetSearchEntreeAction extends AbstractAction
         $chaine = isset($chaine_carac['q']) ? $chaine_carac['q'] : '';
 
         if(!empty($chaine)){
-            $entreeService = new EntreeService();
             $service_service = new DepartementService();
-            $entrees = $entreeService->getEntreeByCarac($chaine);
-            $entrees_result = [];
+            $services = $service_service->getServicesByCarac($chaine);
+            $services_result = [];
 
-            foreach ($entrees as $ent) {
-                $services = [];
-                $sql = $service_service->getServicesByEntreeId($ent['id']);
-                foreach ($sql as $service) {
-                    $services[] = [
-                        "Nom du département" => $service['nom']
-                    ];
-                }
-                $entrees_result[] = [
-                    "entree" => [
-                        "id" => $ent['id'],
-                        "nom" => $ent['nom'],
-                        "prenom" => $ent['prenom'],
-                        "departement" => $services
+            foreach ($services as $ser) {
+                $services_result[] = [
+                    "services" => [
+                        "id" => $ser['id'],
+                        "nom" => $ser['nom'],
+                        "etage" => $ser['etage'],
+                        "description" => $ser['description']
                     ],
                     "links" => [
                         "self" => [
-                            "href" => "/entree/" . $ent['id']
+                            "href" => "/services/" . $ser['id']
                         ]
                     ]
                 ];
             }
         }
-        $data = ['type' => 'collection', 'count' => count($entrees_result), 'entrees' => $entrees_result];
+        $data = ['type' => 'collection', 'count' => count($services_result), 'services' => $services_result];
         $response->getBody()->write(json_encode($data));
         return $response
             ->withHeader('Content-Type', 'application/json')
