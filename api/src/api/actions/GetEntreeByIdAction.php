@@ -18,12 +18,19 @@ class GetEntreeByIdAction extends AbstractAction
         $service_service = new DepartementService();
         $sql = $entree_service->getEntreeById($entree_id);
         $services = [];
+        $departments = [];
         if($sql){
             foreach($sql as $e){
                 $sql_bis = $service_service->getServicesByEntreeId($e['id']);
                 foreach ($sql_bis as $service){
                     $services[] = [
-                        "NomDep" => $service['nom']
+                        "Nomservice" => $service['nom']
+                    ];
+                }
+                $sql_dep = $service_service->getDepartementsByEntreeId($e['id']);
+                foreach ($sql_dep as $departement){
+                    $departments[] = [
+                        "NomDep" => $departement['nom']
                     ];
                 }
                 $result_entree[] = [
@@ -36,7 +43,8 @@ class GetEntreeByIdAction extends AbstractAction
                         "Numéro de téléphone fixe" => $e['num_fixe'],
                         "Numéro de téléphone mobile" => $e['num_mobile'],
                         "Email" => $e['email'],
-                        "departement" => $services
+                        "services" => $services,
+                        "departement" => $departments
                     ],
                     "links" => [
                         "self" => [
