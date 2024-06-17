@@ -1,12 +1,20 @@
 <header>
-    <h1>SAE S4 Api</h1>
+    <h1>SAE S4 Admin</h1>
     <nav>
         <ul>
             <li><a href="{{ url_for("home") }}">Accueil</a></li>
             <li><a href="{{ url_for("entrees") }}">Entrées</a></li>
-            <li><a href="{{ url_for("entrees.create") }}">Nouvelle entrée</a></li>
-            <li><a href="{{ url_for("services.create") }}">Nouveau service</a></li>
-            <li><a href="{{ url_for("departements.create") }}">Nouveau département</a></li>
+            {% if globals.user_role == globals.super_admin %}
+                <li><a href="{{ url_for("signup") }}">Créer Admin</a></li>
+            {% endif %}
+            {% if globals.user_role == globals.super_admin or globals.user_role == globals.admin %}
+                <li><a href="{{ url_for("entrees.create") }}">Nouvelle entrée</a></li>
+                <li><a href="{{ url_for("services.create") }}">Nouveau service</a></li>
+                <li><a href="{{ url_for("departements.create") }}">Nouveau département</a></li>
+                <li><a href="{{ url_for("logout") }}">Se déconnecter</a></li>
+            {% else %}
+                <li><a href="{{ url_for("login") }}">Se connecter</a></li>
+            {% endif %}
         </ul>
     </nav>
 </header>

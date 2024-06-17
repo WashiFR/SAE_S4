@@ -32,7 +32,8 @@ class EntreService implements IEntreeService
         try {
             $sql = Entree::whereHas('departements', function ($query) use ($departement_id) {
                 $query->where('id_departement', $departement_id);
-            })->sortBy('nom')->get();
+            })->get();
+            $sql = $sql->sortBy('nom');
         } catch (\Exception $e) {
             throw new EntreeServiceNotFoundException('Erreur 404 : Aucune entree trouvée', 404);
         }
@@ -44,7 +45,8 @@ class EntreService implements IEntreeService
         try {
             $sql = Entree::whereHas('services', function ($query) use ($service_id) {
                 $query->where('id_service', $service_id);
-            })->sortBy('nom')->get();
+            })->get();
+            $sql = $sql->sortBy('nom');
         } catch (\Exception $e) {
             throw new EntreeServiceNotFoundException('Erreur 404 : Aucune entree trouvée', 404);
         }
@@ -58,7 +60,8 @@ class EntreService implements IEntreeService
                 $query->where('id_departement', $departement_id);
             })->whereHas('services', function ($query) use ($service_id) {
                 $query->where('id_service', $service_id);
-            })->sortBy('nom')->get();
+            })->get();
+            $sql = $sql->sortBy('nom');
         } catch (\Exception $e) {
             throw new EntreeServiceNotFoundException('Erreur 404 : Aucune entree trouvée', 404);
         }

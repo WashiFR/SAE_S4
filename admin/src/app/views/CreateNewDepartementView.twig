@@ -4,11 +4,12 @@
     <h1>Créer un nouveau Département</h1>
     <form action="{{ url_for('departements.create') }}" method="post">
         <label for="nom">Nom</label>
-        <input type="text" name="nom" id="nom">
+        <input type="text" name="nom" id="nom" required>
         <label for="etage">Etage</label>
-        <input type="text" name="etage" id="etage">
+        <input type="text" name="etage" id="etage" required>
         <label for="description">Description</label>
-        <input type="text" name="description" id="description">
+        <input type="text" name="description" id="description" required>
+        <input type="hidden" name="csrf" value="{{ csrf }}">
         <button type="submit">Ajouter</button>
     </form>
 {% endblock %}

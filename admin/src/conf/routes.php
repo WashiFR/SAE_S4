@@ -21,6 +21,13 @@ return function(App $app): App {
     $app->get('/departements/create', \admin\app\actions\CreateNewDepartementAction::class)->setName('departements.create');
     $app->post('/departements/create', \admin\app\actions\PostNewDepartementAction::class)->setName('departements.create');
 
+    // ### Routes de Connexion ###
+    $app->get('/login', \admin\app\actions\LoginAction::class)->setName('login');
+    $app->post('/login', \admin\app\actions\PostLoginAction::class)->setName('login');
+    $app->get('/signup', \admin\app\actions\SignupAction::class)->setName('signup');
+    $app->post('/signup', \admin\app\actions\PostSignupAction::class)->setName('signup');
+    $app->get('/logout', \admin\app\actions\LogoutAction::class)->setName('logout');
+
     return $app;
 
 };

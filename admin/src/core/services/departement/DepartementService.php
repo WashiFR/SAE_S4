@@ -28,6 +28,18 @@ class DepartementService implements IDepartementService
         return $sql->toArray();
     }
 
+    public function getDepartementsByEntreeId(int $id): array
+    {
+        try {
+            $sql = Departement::whereHas('entrees', function ($query) use ($id) {
+                $query->where('id_entree', $id);
+            })->get();
+        } catch (\Exception $e) {
+            throw new DepartementServiceNotFoundException('Erreur 404 : Aucun département trouvé', 404);
+        }
+        return $sql->toArray();
+    }
+
     public function createDepartement(array $data): int
     {
         $departement = new Departement();
@@ -61,9 +73,9 @@ class DepartementService implements IDepartementService
     public function getServicesByEntreeId(int $id): array
     {
         try {
-            $sql = Service::all()->whereHas('entrees', function ($query) use ($id) {
+            $sql = Service::whereHas('entrees', function ($query) use ($id) {
                 $query->where('id_entree', $id);
-            });
+            })->get();
         } catch (\Exception $e) {
             throw new DepartementServiceNotFoundException('Erreur 404 : Aucun service trouvé', 404);
         }
