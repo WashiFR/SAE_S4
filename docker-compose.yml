@@ -1,1 +1,58 @@
+networks:
+  webdir:
+    driver: bridge
+
+services:
+
+  php:
+    image: canals/php:latest
+    container_name: sae-s4-php-container
+    ports:
+      - "14200:80"
+    depends_on:
+      - mysql
+    volumes:
+      - ./admin/public:/var/www/html
+      - ./admin/src:/var/www/src
+    networks:
+      - webdir
+      
+  api:
+    image: canals/php:latest
+    container_name: sae-s4-api-container
+    ports:
+      - "14201:80"
+    depends_on:
+      - mysql
+    volumes:
+      - ./api/public:/var/www/html
+      - ./api/src:/var/www/src
+    networks:
+      - webdir
+
+  mysql:
+    image: mariadb:latest
+    container_name: sae-s4-mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "14202:3306"
+    networks:
+      - webdir
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: sae-s4-phpmyadmin-container
+    environment:
+      PMA_HOST: sae-s4-mysql-container
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "14203:80"
+    networks:
+      - webdir
+
+
 
