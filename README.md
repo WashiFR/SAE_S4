@@ -8,4 +8,5 @@ SAE Atelier de développement d’application web Semestre 4
 
 ## Docketu
 * Admin : http://docketu.iutnc.univ-lorraine.fr:14200
-* Api : http://docketu.iutnc.univ-lorraine.fr:14203
+* Api : http://docketu.iutnc.univ-lorraine.fr:14201
+* BD : http://docketu.iutnc.univ-lorraine.fr:14203
