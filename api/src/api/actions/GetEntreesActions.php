@@ -43,7 +43,7 @@ class GetEntreesActions extends AbstractAction
                 ],
                 "links" => [
                     "self" => [
-                        "href" => "/entree/" . $ent['id']
+                        "href" => "/entrees/" . $ent['id']
                     ]
                 ]
             ];
