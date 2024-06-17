@@ -24,10 +24,17 @@ class GetSearchEntreeAction extends AbstractAction
 
             foreach ($entrees as $ent) {
                 $services = [];
+                $departments = [];
                 $sql = $service_service->getServicesByEntreeId($ent['id']);
                 foreach ($sql as $service) {
                     $services[] = [
-                        "NomDep" => $service['nom']
+                        "NomService" => $service['nom']
+                    ];
+                }
+                $sql_dep = $service_service->getDepartementsByEntreeId($ent['id']);
+                foreach ($sql_dep as $departement){
+                    $departments[] = [
+                        "NomDep" => $departement['nom']
                     ];
                 }
                 $entrees_result[] = [
@@ -35,7 +42,8 @@ class GetSearchEntreeAction extends AbstractAction
                         "id" => $ent['id'],
                         "nom" => $ent['nom'],
                         "prenom" => $ent['prenom'],
-                        "departement" => $services
+                        "departements" => $departments,
+                        "services" => $services
                     ],
                     "links" => [
                         "self" => [
