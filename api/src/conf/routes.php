@@ -15,6 +15,7 @@ return function(App $app): App {
     $app->get('/api/departements/search', \api\api\actions\GetSearchDepartementAction::class)->setName('api.searchDepartement');
 
     $app->get('/api/services/{id}/entrees', \api\api\actions\GetEntreesByServiceAction::class)->setName('api.entreesByService');
+    $app->get('/api/departements/{id}/entrees', \api\api\actions\GetEntreeByDepartementAction::class)->setName('api.entreesByDep');
     $app->get('/api/entrees/{id}', \api\api\actions\GetEntreeByIdAction::class)->setName('api.entreesById');
     $app->get('/api/services/{id}', \api\api\actions\GetServiceByIdAction::class)->setName('api.serviceById');
     $app->get('/api/departements/{id}', \api\api\actions\GetDepartementByIdAction::class)->setName('api.departementById');
