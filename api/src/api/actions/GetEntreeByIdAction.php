@@ -23,7 +23,7 @@ class GetEntreeByIdAction extends AbstractAction
                 $sql_bis = $service_service->getServicesByEntreeId($e['id']);
                 foreach ($sql_bis as $service){
                     $services[] = [
-                        "Nom du département" => $service['nom']
+                        "NomDep" => $service['nom']
                     ];
                 }
                 $result_entree[] = [

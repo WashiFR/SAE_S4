@@ -30,6 +30,7 @@ class DepartementService implements IDepartementService
         return $sql->toArray();
     }
 
+
     public function getDepartementByCarac(string $carac){
         try{
             $sql = Departement::where('nom', 'LIKE', "%{$carac}%")->get();
