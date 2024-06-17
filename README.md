@@ -6,6 +6,6 @@ SAE Atelier de développement d’application web Semestre 4
 * [SZEZCPANSKI Gaëtan](https://github.com/Gaetan66)
 * [DEKERSABIEC Thomas](https://github.com/dekersab3u)
 
-# Docketu
+## Docketu
 * Admin : http://docketu.iutnc.univ-lorraine.fr:14200
 * Api : http://docketu.iutnc.univ-lorraine.fr:14203
