@@ -30,7 +30,9 @@ class PostNewEntreeAction extends AbstractAction
             'num_bureau' => $data['num_bureau'],
             'num_fixe' => $data['num_fixe'] ?? null,
             'num_mobile' => $data['num_mobile'],
-            'email' => $data['email']
+            'email' => $data['email'],
+            'departement_id' => $data['departement_id'],
+            'service_id' => $data['service_id']
         ]);
 
         $routeContext = RouteContext::fromRequest($request);

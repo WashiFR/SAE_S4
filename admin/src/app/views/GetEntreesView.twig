@@ -2,9 +2,39 @@
 
 {% block content %}
     <h1>Entrees</h1>
+    <label for="departement">Département</label>
+    <select name="departement" id="departement">
+        <option value="0" {% if not selectedDepartement %}selected{% endif %}>---</option>
+        {% for departement in departements %}
+            <option value="{{ departement.id }}" {% if departement.id == selectedDepartement %}selected{% endif %}>
+                {{ departement.nom }}
+            </option>
+        {% endfor %}
+    </select>
+    <label for="service">Service</label>
+    <select name="service" id="service">
+        <option value="0" {% if not selectedService %}selected{% endif %}>---</option>
+        {% for service in services %}
+            <option value="{{ service.id }}" {% if service.id == selectedService %}selected{% endif %}>
+                {{ service.nom }}
+            </option>
+        {% endfor %}
+    </select>
     <ul>
         {% for entree in entrees %}
             <li>{{ entree.nom }} {{ entree.prenom }}</li>
         {% endfor %}
     </ul>
+
+    <script>
+        function updateUrl() {
+            let departement = document.getElementById('departement').value;
+            if (departement === '0') departement = '';
+            let service = document.getElementById('service').value;
+            if (service === '0') service = '';
+            window.location.href = '{{ url_for('entrees') }}?departement=' + departement + '&service=' + service;
+        }
+        document.getElementById('departement').addEventListener('change', updateUrl);
+        document.getElementById('service').addEventListener('change', updateUrl);
+    </script>
 {% endblock %}
