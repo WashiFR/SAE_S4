@@ -1,0 +1,14 @@
+{% extends 'SkeletonView.twig' %}
+
+{% block content %}
+    <h1>Créer un nouveau Département</h1>
+    <form action="{{ url_for('departements.create') }}" method="post">
+        <label for="nom">Nom</label>
+        <input type="text" name="nom" id="nom">
+        <label for="etage">Etage</label>
+        <input type="text" name="etage" id="etage">
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description">
+        <button type="submit">Ajouter</button>
+    </form>
+{% endblock %}

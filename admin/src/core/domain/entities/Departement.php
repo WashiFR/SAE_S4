@@ -1,6 +1,6 @@
 <?php
 
-namespace admin\core\domain;
+namespace admin\core\domain\entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +12,6 @@ class Departement extends Model
 
     public function entrees()
     {
-        return $this->belongsToMany('admin\core\domain\Entree', 'entree2departement', 'id_departement', 'id_entree');
+        return $this->belongsToMany('admin\core\domain\entities\Entree', 'entree2departement', 'id_departement', 'id_entree');
     }
 }

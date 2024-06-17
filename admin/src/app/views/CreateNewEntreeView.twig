@@ -17,6 +17,18 @@
         <input type="text" name="num_mobile" id="num_mobile">
         <label for="email">Email</label>
         <input type="email" name="email" id="email">
+        <label for="departement_id">Département</label>
+        <select name="departement_id" id="departement_id">
+            {% for departement in departements %}
+                <option value="{{ departement.id }}">{{ departement.nom }}</option>
+            {% endfor %}
+        </select>
+        <label for="service_id">Service</label>
+        <select name="service_id" id="service_id">
+            {% for service in services %}
+                <option value="{{ service.id }}">{{ service.nom }}</option>
+            {% endfor %}
+        </select>
         <button type="submit">Ajouter</button>
     </form>
 {% endblock %}
