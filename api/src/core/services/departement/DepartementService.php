@@ -41,6 +41,17 @@ class DepartementService implements IDepartementService
 
     }
 
+    public function getDepartementsByEntreeId(int $id): array
+    {
+        try{
+            $entree = Entree::find($id);
+            $sql = $entree->departements;
+        }catch (\Exception $e) {
+            throw new DepartementServiceNotFoundException('Erreur 404 : Aucun service trouvé', 404);
+        }
+        return $sql->toArray();
+    }
+
     public function getServices(): array
     {
         try {
