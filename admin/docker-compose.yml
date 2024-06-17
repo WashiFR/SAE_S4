@@ -5,7 +5,7 @@ networks:
 services:
   php:
     image: canals/php:latest
-    container_name: php-container
+    container_name: sae-s4-php-container
     ports:
       - "14200:80"
     depends_on:
@@ -18,7 +18,7 @@ services:
 
   mysql:
     image: mariadb:latest
-    container_name: mysql-container
+    container_name: sae-s4-mysql-container
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_USER: ${MYSQL_USER}
@@ -31,9 +31,9 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin-container
+    container_name: sae-s4-phpmyadmin-container
     environment:
-      PMA_HOST: mysql-container
+      PMA_HOST: sae-s4-mysql-container
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "14202:80"
