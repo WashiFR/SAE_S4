@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "nom": "Dupont",
+    "prenom": "Jean",
+    "fonction": "Developpeur",
+    "num_bureau": "101",
+    "num_fixe": "01-23-45-67-89",
+    "num_mobile": "06-12-34-56-78",
+    "email": "jean.dupont@example.com"
+  },
+  {
+    "id": 2,
+    "nom": "Martin",
+    "prenom": "Marie",
+    "fonction": "Designer",
+    "num_bureau": "102",
+    "num_fixe": "01-23-45-67-90",
+    "num_mobile": "06-12-34-56-79",
+    "email": "marie.martin@example.com"
+  }
+
+]
