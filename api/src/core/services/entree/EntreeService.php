@@ -3,9 +3,10 @@
 namespace api\core\services\entree;
 
 use api\core\domain\Entree;
+use api\core\domain\Service;
 use api\core\services\entree\IEntreeService;
 
-class EntreService implements IEntreeService
+class EntreeService implements IEntreeService
 {
     public function getEntrees(): array
     {
@@ -27,6 +28,17 @@ class EntreService implements IEntreeService
         return $sql->toArray();
     }
 
+    public  function getEntreeByServiceID(int $id): array
+    {
+        try{
+            $service = Service::find($id);
+            $sql = $service->entrees;
+        }catch(\Exception $e) {
+            throw new EntreeServiceNotFoundException('Erreur 404 : Aucune entree trouvée', 404);
+        }
+        return $sql->toArray();
+    }
+
     public function createEntree(array $data): int
     {
         $entree = new Entree();
@@ -39,5 +51,33 @@ class EntreService implements IEntreeService
         $entree->email = $data['email'];
         $entree->save();
         return $entree->id;
+    }
+
+    public function getEntreeByCarac($carac): array{
+        try{
+            $sql = Entree::where('nom', 'LIKE', "%{$carac}%")->get();
+        }catch (\Exception $e) {
+            throw new EntreeServiceNotFoundException('Erreur 404 : Aucun service trouvé', 404);
+        }
+        return $sql->toArray();
+
+    }
+
+    public function getEntreesByAsc(): array{
+        try{
+            $sql = Entree::orderBy('nom', 'asc')->get();
+        }catch (\Exception $e) {
+            throw new EntreeServiceNotFoundException('Erreur 404 : Aucun service trouvé', 404);
+        }
+        return $sql->toArray();
+    }
+
+    public function getEntreesByDesc(): array{
+        try{
+            $sql = Entree::orderBy('nom', 'desc')->get();
+        }catch (\Exception $e) {
+            throw new EntreeServiceNotFoundException('Erreur 404 : Aucun service trouvé', 404);
+        }
+        return $sql->toArray();
     }
 }

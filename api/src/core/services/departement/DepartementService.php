@@ -3,6 +3,7 @@
 namespace api\core\services\departement;
 
 use api\core\domain\Departement;
+use api\core\domain\Entree;
 use api\core\domain\Service;
 use api\core\services\departement\IDepartementService;
 
@@ -48,4 +49,17 @@ class DepartementService implements IDepartementService
         }
         return $sql->toArray();
     }
+
+    public function getServicesByEntreeId(int $id): array
+    {
+        try{
+            $entree = Entree::find($id);
+            $sql = $entree->services;
+        }catch (\Exception $e) {
+            throw new DepartementServiceNotFoundException('Erreur 404 : Aucun service trouvé', 404);
+        }
+        return $sql->toArray();
+    }
+
+
 }
