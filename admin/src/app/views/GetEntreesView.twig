@@ -2,6 +2,7 @@
 
 {% block content %}
     <h1>Entrees</h1>
+
     <label for="departement">Département</label>
     <select name="departement" id="departement">
         <option value="0" {% if not selectedDepartement %}selected{% endif %}>---</option>
@@ -20,9 +21,24 @@
             </option>
         {% endfor %}
     </select>
+
     <ul>
         {% for entree in entrees %}
             <li>{{ entree.nom }} {{ entree.prenom }}</li>
+            <ul>
+                <li>Départements</li>
+                <ul>
+                    {% for departement in entree.departement %}
+                        <li>{{ departement.nom }}</li>
+                    {% endfor %}
+                </ul>
+                <li>Services</li>
+                <ul>
+                    {% for service in entree.service %}
+                        <li>{{ service.nom }}</li>
+                    {% endfor %}
+                </ul>
+            </ul>
         {% endfor %}
     </ul>
 

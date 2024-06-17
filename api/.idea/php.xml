@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MessDetectorOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCSFixerOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCodeSnifferOptionsConfiguration">
+    <option name="highlightLevel" value="WARNING" />
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/src/vendor/fakerphp/faker" />
+      <path value="$PROJECT_DIR$/src/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/src/vendor/nikic/fast-route" />
+      <path value="$PROJECT_DIR$/src/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/src/vendor/composer" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/clock" />
+      <path value="$PROJECT_DIR$/src/vendor/carbonphp/carbon-doctrine-types" />
+      <path value="$PROJECT_DIR$/src/vendor/fig/http-message-util" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/polyfill-php83" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/polyfill-php81" />
+      <path value="$PROJECT_DIR$/src/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/src/vendor/psr/clock" />
+      <path value="$PROJECT_DIR$/src/vendor/voku/portable-ascii" />
+      <path value="$PROJECT_DIR$/src/vendor/psr/http-server-handler" />
+      <path value="$PROJECT_DIR$/src/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/src/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/src/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/src/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/src/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/src/vendor/psr/http-server-middleware" />
+      <path value="$PROJECT_DIR$/src/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/src/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/src/vendor/illuminate/database" />
+      <path value="$PROJECT_DIR$/src/vendor/illuminate/collections" />
+      <path value="$PROJECT_DIR$/src/vendor/brick/math" />
+      <path value="$PROJECT_DIR$/src/vendor/illuminate/macroable" />
+      <path value="$PROJECT_DIR$/src/vendor/slim/slim" />
+      <path value="$PROJECT_DIR$/src/vendor/illuminate/container" />
+      <path value="$PROJECT_DIR$/src/vendor/slim/psr7" />
+      <path value="$PROJECT_DIR$/src/vendor/illuminate/support" />
+      <path value="$PROJECT_DIR$/src/vendor/slim/twig-view" />
+      <path value="$PROJECT_DIR$/src/vendor/illuminate/contracts" />
+      <path value="$PROJECT_DIR$/src/vendor/illuminate/conditionable" />
+      <path value="$PROJECT_DIR$/src/vendor/nesbot/carbon" />
+    </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
+  <component name="PhpStanOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/src/vendor/autoload.php" />
+    </phpunit_settings>
+  </component>
+  <component name="PsalmOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+</project>

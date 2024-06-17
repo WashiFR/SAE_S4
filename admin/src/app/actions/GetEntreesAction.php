@@ -34,7 +34,7 @@ class GetEntreesAction extends AbstractAction
         try {
             if (!empty($departement_id) && !empty($service_id)) {
                 $entrees = $this->entreeService->getEntreesByDepartementIdAndServiceId($departement_id, $service_id);
-            } else if (!empty($departement_id)) {
+            } elseif (!empty($departement_id)) {
                 $entrees = $this->entreeService->getEntreesByDepartementId($departement_id);
             } elseif (!empty($service_id)) {
                 $entrees = $this->entreeService->getEntreesByServiceId($service_id);
@@ -45,9 +45,11 @@ class GetEntreesAction extends AbstractAction
             $departements = $this->departementService->getDepartements();
             $services = $this->departementService->getServices();
 
-//            foreach ($entrees as $key => $entree) {
-//                $entrees[$key]['departement'] = $this->departementService->getDepartementById($entree['departement_id']);
-//            }
+            foreach ($entrees as $key => $entree) {
+                $entrees[$key]['departement'] = $this->departementService->getDepartementsByEntreeId($entree['id']);
+                $entrees[$key]['service'] = $this->departementService->getServicesByEntreeId($entree['id']);
+            }
+
         } catch (EntreeServiceNotFoundException|DepartementServiceNotFoundException $e) {
             throw new HttpNotFoundException($request, $e->getMessage());
         }

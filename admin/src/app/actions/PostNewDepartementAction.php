@@ -3,10 +3,13 @@
 namespace admin\app\actions;
 
 use admin\app\actions\AbstractAction;
+use admin\app\utils\CsrfException;
+use admin\app\utils\CsrfService;
 use admin\core\services\departement\DepartementService;
 use admin\core\services\departement\IDepartementService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\Exception\HttpBadRequestException;
 use Slim\Routing\RouteContext;
 
 class PostNewDepartementAction extends AbstractAction
@@ -21,6 +24,12 @@ class PostNewDepartementAction extends AbstractAction
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $data = $request->getParsedBody();
+
+        try {
+            CsrfService::check($data['csrf']);
+        } catch (CsrfException $e) {
+            throw new HttpBadRequestException($request, $e->getMessage());
+        }
 
         $departement_id = $this->departementService->createDepartement([
             'nom' => $data['nom'],
