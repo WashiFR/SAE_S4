@@ -4,7 +4,7 @@ namespace admin\core\services\auth;
 
 interface IAuthService
 {
-    public function login(string $email, string $password): void;
-    public function signup(string $email, string $password): void;
-    public function logout(): void;
+    public function register(string $email, string $password): string;
+    public function byCredentials(string $email, string $password): bool;
+    public function getAdmin(string $email): array;
 }
