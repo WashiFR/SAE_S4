@@ -1,6 +1,6 @@
 <?php
 
-namespace admin\app\providers;
+namespace admin\app\providers\auth;
 
 interface IAuthProvider
 {
