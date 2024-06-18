@@ -16,7 +16,7 @@ use Slim\Views\Twig;
 
 class GetEntreesAction extends AbstractAction
 {
-    protected string $template = 'GetEntreesView.twig';
+    protected string $template = 'EntreesView.twig';
     private IEntreeService $entreeService;
     private IDepartementService $departementService;
 

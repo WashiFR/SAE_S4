@@ -4,16 +4,16 @@
         <ul>
             <li><a href="{{ url_for("home") }}">Accueil</a></li>
             <li><a href="{{ url_for("entrees") }}">Entrées</a></li>
-            {% if globals.user_role == globals.super_admin %}
-                <li><a href="{{ url_for("signup") }}">Créer Admin</a></li>
+            {% if globals.session_admin['role'] == globals.super_admin %}
+                <li><a href="{{ url_for("register") }}">Créer Admin</a></li>
             {% endif %}
-            {% if globals.user_role == globals.super_admin or globals.user_role == globals.admin %}
+            {% if globals.session_admin['role'] == globals.super_admin or globals.session_admin['role'] == globals.admin %}
                 <li><a href="{{ url_for("entrees.create") }}">Nouvelle entrée</a></li>
                 <li><a href="{{ url_for("services.create") }}">Nouveau service</a></li>
                 <li><a href="{{ url_for("departements.create") }}">Nouveau département</a></li>
-                <li><a href="{{ url_for("logout") }}">Se déconnecter</a></li>
+                <li><a href="{{ url_for("signout") }}">Se déconnecter</a></li>
             {% else %}
-                <li><a href="{{ url_for("login") }}">Se connecter</a></li>
+                <li><a href="{{ url_for("signin") }}">Se connecter</a></li>
             {% endif %}
         </ul>
     </nav>

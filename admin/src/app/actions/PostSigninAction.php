@@ -3,23 +3,23 @@
 namespace admin\app\actions;
 
 use admin\app\actions\AbstractAction;
+use admin\app\providers\IAuthProvider;
+use admin\app\providers\SessionAuthProvider;
 use admin\app\utils\CsrfException;
 use admin\app\utils\CsrfService;
-use admin\core\domain\entities\Admin;
-use admin\core\services\auth\AuthService;
-use admin\core\services\auth\IAuthService;
+use admin\core\services\auth\AuthServiceBadDataException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpBadRequestException;
 use Slim\Routing\RouteContext;
 
-class PostSignupAction extends AbstractAction
+class PostSigninAction extends AbstractAction
 {
-    private IAuthService $authService;
+    private IAuthProvider $authService;
 
     public function __construct()
     {
-        $this->authService = new AuthService();
+        $this->authService = new SessionAuthProvider();
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
@@ -35,7 +35,11 @@ class PostSignupAction extends AbstractAction
         $email = $data['email'] ?? null;
         $password = $data['password'] ?? null;
 
-        $this->authService->signup($email, $password);
+        try {
+            $this->authService->signin($email, $password);
+        } catch (AuthServiceBadDataException $e) {
+            throw new HttpBadRequestException($request, $e->getMessage());
+        }
 
         $routeContext = RouteContext::fromRequest($request);
         $url = $routeContext->getRouteParser()->urlFor('home');

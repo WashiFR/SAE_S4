@@ -3,27 +3,27 @@
 namespace admin\app\actions;
 
 use admin\app\actions\AbstractAction;
-use admin\core\services\auth\AuthService;
-use admin\core\services\auth\IAuthService;
+use admin\app\providers\IAuthProvider;
+use admin\app\providers\SessionAuthProvider;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Routing\RouteContext;
 
-class LogoutAction extends AbstractAction
+class GetSignoutAction extends AbstractAction
 {
-    private IAuthService $authService;
+    private IAuthProvider $authService;
 
     public function __construct()
     {
-        $this->authService = new AuthService();
+        $this->authService = new SessionAuthProvider();
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        $this->authService->logout();
+        $this->authService->signout();
 
         $routeContext = RouteContext::fromRequest($request);
-        $url = $routeContext->getRouteParser()->urlFor('login');
+        $url = $routeContext->getRouteParser()->urlFor('signin');
         return $response->withStatus(302)->withHeader('Location', $url);
     }
 }
