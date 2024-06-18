@@ -1,8 +1,7 @@
 <?php
 
-namespace admin\app\providers;
+namespace admin\app\providers\auth;
 
-use admin\app\providers\IAuthProvider;
 use admin\core\services\auth\AuthService;
 use admin\core\services\auth\AuthServiceBadDataException;
 use admin\core\services\auth\IAuthService;

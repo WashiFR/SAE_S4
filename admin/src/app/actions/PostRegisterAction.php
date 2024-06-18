@@ -2,12 +2,10 @@
 
 namespace admin\app\actions;
 
-use admin\app\actions\AbstractAction;
-use admin\app\providers\IAuthProvider;
-use admin\app\providers\SessionAuthProvider;
+use admin\app\providers\auth\IAuthProvider;
+use admin\app\providers\auth\SessionAuthProvider;
 use admin\app\utils\CsrfException;
 use admin\app\utils\CsrfService;
-use admin\core\domain\entities\Admin;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpBadRequestException;
