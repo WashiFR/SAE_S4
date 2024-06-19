@@ -1,20 +1,73 @@
 <header>
-    <h1>SAE S4 Admin</h1>
+    <p class="title">SAE S4 Admin</p>
     <nav>
         <ul>
-            <li><a href="{{ url_for("home") }}">Accueil</a></li>
-            <li><a href="{{ url_for("entrees") }}">Entrées</a></li>
+            <li><a href="{{ url_for("home") }}">
+                    <i class="fa-solid fa-house"></i>Accueil
+                </a></li>
+            <li><a href="{{ url_for("entrees") }}">
+                    <i class="fa-solid fa-user"></i>Entrées
+                </a></li>
+            <span class="separator"></span>
             {% if globals.session_admin['role'] == globals.super_admin %}
-                <li><a href="{{ url_for("register") }}">Créer Admin</a></li>
+                <li><a href="{{ url_for("register") }}">
+                        <i class="fa-solid fa-user-plus"></i>Admin
+                    </a></li>
             {% endif %}
             {% if globals.session_admin['role'] == globals.super_admin or globals.session_admin['role'] == globals.admin %}
-                <li><a href="{{ url_for("entrees.create") }}">Nouvelle entrée</a></li>
-                <li><a href="{{ url_for("services.create") }}">Nouveau service</a></li>
-                <li><a href="{{ url_for("departements.create") }}">Nouveau département</a></li>
-                <li><a href="{{ url_for("signout") }}">Se déconnecter</a></li>
+                <li><a href="{{ url_for("entrees.create") }}">
+                        <i class="fa-solid fa-plus"></i>Entrée
+                    </a></li>
+                <li><a href="{{ url_for("services.create") }}">
+                        <i class="fa-solid fa-plus"></i>Service
+                    </a></li>
+                <li><a href="{{ url_for("departements.create") }}">
+                        <i class="fa-solid fa-plus"></i>Département
+                    </a></li>
+                <span class="separator"></span>
+                <li><a href="{{ url_for("signout") }}">
+                        <i class="fa-solid fa-right-from-bracket"></i>Se déconnecter
+                    </a></li>
             {% else %}
-                <li><a href="{{ url_for("signin") }}">Se connecter</a></li>
+                <li><a href="{{ url_for("signin") }}">
+                        <i class="fa-solid fa-circle-user"></i>Se connecter
+                    </a></li>
             {% endif %}
         </ul>
+        {% include 'FooterView.twig' %}
     </nav>
 </header>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ul = document.querySelector('ul');
+        const links = ul.querySelectorAll('a');
+
+        // Fonction pour activer le lien correspondant à l'URL actuelle
+        function setActiveLink() {
+            const currentPath = window.location.pathname;
+
+            links.forEach(a => {
+                if (a.getAttribute('href') === currentPath) {
+                    a.classList.add('active');
+                } else {
+                    a.classList.remove('active');
+                }
+            });
+        }
+
+        // Activer le lien correspondant à l'URL actuelle au chargement de la page
+        setActiveLink();
+
+        // Écouter les clics sur les liens et mettre à jour la classe active
+        ul.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                links.forEach(a => a.classList.remove('active'));
+                e.target.classList.add('active');
+            }
+        });
+
+        // Mettre à jour la classe active lors du changement d'URL
+        window.addEventListener('popstate', setActiveLink);
+    });
+</script>

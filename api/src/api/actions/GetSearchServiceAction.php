@@ -23,7 +23,7 @@ class GetSearchServiceAction extends AbstractAction
 
             foreach ($services as $ser) {
                 $services_result[] = [
-                    "services" => [
+                    "service" => [
                         "id" => $ser['id'],
                         "nom" => $ser['nom'],
                         "etage" => $ser['etage'],

@@ -24,7 +24,7 @@ class GetEntreeByIdAction extends AbstractAction
                 $sql_bis = $service_service->getServicesByEntreeId($e['id']);
                 foreach ($sql_bis as $service){
                     $services[] = [
-                        "Nomservice" => $service['nom']
+                        "NomService" => $service['nom']
                     ];
                 }
                 $sql_dep = $service_service->getDepartementsByEntreeId($e['id']);
@@ -44,7 +44,7 @@ class GetEntreeByIdAction extends AbstractAction
                         "NumeroMobile" => $e['num_mobile'],
                         "Email" => $e['email'],
                         "services" => $services,
-                        "departement" => $departments
+                        "departements" => $departments
                     ],
                     "links" => [
                         "self" => [

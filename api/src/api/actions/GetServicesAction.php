@@ -19,7 +19,7 @@ class GetServicesAction extends AbstractAction
         $services = [];
         foreach ($sql as $ser) {
             $services[] = [
-                "services" => [
+                "service" => [
                     "id" => $ser['id'],
                     "nom" => $ser['nom'],
                     "etage" => $ser['etage'],
