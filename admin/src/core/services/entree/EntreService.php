@@ -68,7 +68,7 @@ class EntreService implements IEntreeService
         return $sql->toArray();
     }
 
-    public function createEntree(array $data): int
+    public function createEntree(array $data, array $dep_id, array $serv_id): int
     {
         $entree = new Entree();
         $entree->nom = $data['nom'];
@@ -79,8 +79,12 @@ class EntreService implements IEntreeService
         $entree->num_mobile = $data['num_mobile'];
         $entree->email = $data['email'];
         $entree->save();
-        $entree->departements()->attach($data['departement_id']);
-        $entree->services()->attach($data['service_id']);
+        foreach ($dep_id as $id) {
+            $entree->departements()->attach($id);
+        }
+        foreach ($serv_id as $id) {
+            $entree->services()->attach($id);
+        }
         return $entree->id;
     }
 }

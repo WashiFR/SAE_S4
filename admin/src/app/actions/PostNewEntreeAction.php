@@ -32,17 +32,19 @@ class PostNewEntreeAction extends AbstractAction
             throw new HttpBadRequestException($request, $e->getMessage());
         }
 
-        $entree_id = $this->entreeService->createEntree([
-            'nom' => $data['nom'],
-            'prenom' => $data['prenom'],
-            'fonction' => $data['fonction'],
-            'num_bureau' => $data['num_bureau'],
-            'num_fixe' => $data['num_fixe'] ?? null,
-            'num_mobile' => $data['num_mobile'],
-            'email' => $data['email'],
-            'departement_id' => $data['departement_id'],
-            'service_id' => $data['service_id']
-        ]);
+        $entree_id = $this->entreeService->createEntree(
+            [
+                'nom' => $data['nom'],
+                'prenom' => $data['prenom'],
+                'fonction' => $data['fonction'],
+                'num_bureau' => $data['num_bureau'],
+                'num_fixe' => $data['num_fixe'] ?? null,
+                'num_mobile' => $data['num_mobile'],
+                'email' => $data['email'],
+            ],
+            $data['departements_id'],
+            $data['services_id']
+        );
 
         $routeContext = RouteContext::fromRequest($request);
         $url = $routeContext->getRouteParser()->urlFor('home');
