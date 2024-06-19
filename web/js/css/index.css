@@ -52,6 +52,21 @@ nav ul li a:hover {
     padding: 2vh 2vw;
 }
 
+#divbtnTri {
+    width: 100%;
+    padding: 2vh 0 6vw 0.7vh;
+}
+
+#btnTrier {
+    background-color:white;
+    color: black;
+    border-radius:1.2em;
+    max-height:5vh;
+    font-family: inherit;
+    font-size: 1.6vw;
+    white-space: normal;
+}
+
 .entree {
     background: linear-gradient(135deg, #bababa, #7a7a7a);
     color: #000;

@@ -4,7 +4,7 @@ export async function afficherToutesLesEntrees() {
     try {
         const annuaire = await fetchAllEntries();
 
-        annuaire.filter((a, b) => a.nom.localeCompare(b.nom)); // Tri par nom de famille
+        annuaire.sort((a, b) => a.nom.localeCompare(b.nom)); // Tri par nom de famille
         afficherAnnuaire(annuaire);
     } catch (error) {
         console.error('Erreur:', error);
@@ -13,11 +13,12 @@ export async function afficherToutesLesEntrees() {
 
 function afficherAnnuaire(annuaire) {
     const annuaireDiv = document.getElementById('annuaire');
-    annuaireDiv.innerHTML = '';  // Clear any existing content
+    annuaireDiv.innerHTML = `
+        <!--<div id="divbtnTri"><button id="btnTrier">Trier (A...Z)</button></div>-->
+        `;
     annuaire.forEach(entree => {
         const personDiv = document.createElement('div');
         personDiv.classList.add('entree');
-        //console.log(entree.departement);
         const dept = entree.departement.map(d => ({
             dpt : d.nomDep
         }));

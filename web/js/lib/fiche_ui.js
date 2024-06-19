@@ -1,4 +1,3 @@
-import { API_URL } from './config.js';
 import {fetchEntryById, parseEntry} from './webdirloader.js';
 
 export async function afficherFicheDetails(id) {
@@ -7,7 +6,7 @@ export async function afficherFicheDetails(id) {
         console.log(data);
         const entree = await parseEntry(data);
         const ficheDetails = document.getElementById('ficheDetails');
-
+        document.getElementById('annuaire').innerHTML = '';
         ficheDetails.innerHTML = `
             <h2>${entree.nom}, ${entree.prenom}</h2>
             <p>ID: ${entree.id}</p>
