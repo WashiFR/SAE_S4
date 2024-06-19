@@ -39,9 +39,9 @@ class GetEntreeByIdAction extends AbstractAction
                         "nom" => $e['nom'],
                         "prenom" => $e['prenom'],
                         "fonction" => $e['fonction'],
-                        "Numéro de bureau" => $e['num_bureau'],
-                        "Numéro de téléphone fixe" => $e['num_fixe'],
-                        "Numéro de téléphone mobile" => $e['num_mobile'],
+                        "NumeroBureau" => $e['num_bureau'],
+                        "NumeroFixe" => $e['num_fixe'],
+                        "NumeroMobile" => $e['num_mobile'],
                         "Email" => $e['email'],
                         "services" => $services,
                         "departement" => $departments
@@ -59,9 +59,6 @@ class GetEntreeByIdAction extends AbstractAction
         $response->getBody()->write(json_encode($data));
         return $response
             ->withHeader('Content-Type', 'application/json')
-            ->withHeader('Access-Control-Allow-Origin', '*')
-            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-            ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
             ->withStatus(200);
     }
 }

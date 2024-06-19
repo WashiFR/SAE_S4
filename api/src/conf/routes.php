@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use Slim\App;
+use Slim\Exception\HttpNotFoundException;
 
 return function(App $app): App {
 
@@ -19,6 +20,11 @@ return function(App $app): App {
     $app->get('/api/entrees/{id}', \api\api\actions\GetEntreeByIdAction::class)->setName('api.entreesById');
     $app->get('/api/services/{id}', \api\api\actions\GetServiceByIdAction::class)->setName('api.serviceById');
     $app->get('/api/departements/{id}', \api\api\actions\GetDepartementByIdAction::class)->setName('api.departementById');
+
+    $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function ($request, $response) {
+        throw new HttpNotFoundException($request);
+    });
+
     return $app;
 
 };
