@@ -1,2 +1,2 @@
-export const API_URL = "http://docketu.iutnc.univ-lorraine.fr:54002/api/entrees"
+export const API_URL = "http://docketu.iutnc.univ-lorraine.fr:14201/api/entrees";
 
