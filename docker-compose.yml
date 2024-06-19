@@ -6,6 +6,7 @@ services:
 
   php:
     image: canals/php:latest
+    restart: unless-stopped
     container_name: sae-s4-php-container
     ports:
       - "14200:80"
@@ -19,6 +20,7 @@ services:
       
   api:
     image: canals/php:latest
+    restart: unless-stopped
     container_name: sae-s4-api-container
     ports:
       - "14201:80"
@@ -32,6 +34,7 @@ services:
 
   mysql:
     image: mariadb:latest
+    restart: unless-stopped
     container_name: sae-s4-mysql-container
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -45,6 +48,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
     container_name: sae-s4-phpmyadmin-container
     environment:
       PMA_HOST: sae-s4-mysql-container
