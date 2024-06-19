@@ -1,44 +1,44 @@
 {% extends 'SkeletonView.twig' %}
 
 {% block content %}
-    <h1>Créer une nouvelle Entrée</h1>
-    <form action="{{ url_for('entrees.create') }}" method="post" onsubmit="return validateCheckboxes()">
-        <label for="nom">Nom</label>
-        <input type="text" name="nom" id="nom" required>
-        <label for="prenom">Prénom</label>
-        <input type="text" name="prenom" id="prenom" required>
-        <label for="fonction">Fonction</label>
-        <input type="text" name="fonction" id="fonction" required>
-        <label for="num_bureau">Numéro de bureau</label>
-        <input type="text" name="num_bureau" id="num_bureau" required>
-        <label for="num_fixe">Numéro de téléphone fixe</label>
-        <input type="tel" name="num_fixe" id="num_fixe">
-        <label for="num_mobile">Numéro de téléphone mobile</label>
-        <input type="tel" name="num_mobile" id="num_mobile" required>
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" required>
-        <label for="departements_id">Département</label>
-        <label for="departements">Départements</label>
-        <div id="departements">
-            {% for departement in departements %}
-                <label>
-                    <input type="checkbox" class="departement-checkbox" name="departements_id[]" value="{{ departement.id }}">
-                    {{ departement.nom }}
-                </label><br>
-            {% endfor %}
-        </div>
-        <label for="services">Services</label>
-        <div id="services">
-            {% for service in services %}
-                <label>
-                    <input type="checkbox" class="service-checkbox" name="services_id[]" value="{{ service.id }}">
-                    {{ service.nom }}
-                </label><br>
-            {% endfor %}
-        </div>
-        <input type="hidden" name="csrf" value="{{ csrf }}">
-        <button type="submit">Ajouter</button>
-    </form>
+    <div class="content-form">
+        <h1>Créer une nouvelle Entrée</h1>
+        <form action="{{ url_for('entrees.create') }}" method="post" onsubmit="return validateCheckboxes()">
+            <div class="group-input">
+                <input type="text" name="nom" id="nom" placeholder="Nom" required>
+                <input type="text" name="prenom" id="prenom" placeholder="Prénom" required>
+            </div>
+            <div class="group-input">
+                <input type="text" name="fonction" id="fonction" placeholder="Fonction" required>
+                <input type="text" name="num_bureau" id="num_bureau" placeholder="Numéro de bureau" required>
+            </div>
+            <div class="group-input">
+                <input type="tel" name="num_fixe" id="num_fixe" placeholder="Numéro fixe">
+                <input type="tel" name="num_mobile" id="num_mobile" placeholder="Numéro mobile" required>
+            </div>
+            <input type="email" name="email" id="email" placeholder="Email" required>
+            <label for="departements">Départements</label>
+            <div id="departements">
+                {% for departement in departements %}
+                    <label>
+                        <input type="checkbox" class="departement-checkbox" name="departements_id[]" value="{{ departement.id }}">
+                        {{ departement.nom }}
+                    </label><br>
+                {% endfor %}
+            </div>
+            <label for="services">Services</label>
+            <div id="services">
+                {% for service in services %}
+                    <label>
+                        <input type="checkbox" class="service-checkbox" name="services_id[]" value="{{ service.id }}">
+                        {{ service.nom }}
+                    </label><br>
+                {% endfor %}
+            </div>
+            <input type="hidden" name="csrf" value="{{ csrf }}">
+            <input type="submit" value="Créer">
+        </form>
+    </div>
 
     <script>
         function validateCheckboxes() {
