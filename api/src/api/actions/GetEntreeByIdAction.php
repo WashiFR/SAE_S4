@@ -44,7 +44,7 @@ class GetEntreeByIdAction extends AbstractAction
                         "NumeroMobile" => $e['num_mobile'],
                         "Email" => $e['email'],
                         "services" => $services,
-                        "departement" => $departments
+                        "departements" => $departments
                     ],
                     "links" => [
                         "self" => [
