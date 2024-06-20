@@ -50,11 +50,22 @@ document.getElementById('validerDepartement').addEventListener('click', async fu
 });
 
 
-//affiche les entrees par recherche
-document.getElementById('validerRecherche').addEventListener('click', () => {
-    var search= document.getElementById('searchInput').value;
-    afficherRechercheParNom(search).then();
-});
+// recherche par nom
+// document.getElementById('validerRecherche').addEventListener('click', () => {
+//     var search= document.getElementById('searchInput').value;
+//     afficherRechercheParNom(search).then();
+// });
 
+
+document.getElementById('searchInput').addEventListener('input', () => {
+    debugger
+    var search= document.getElementById('searchInput').value;
+    if(search !='') {
+        afficherRechercheParNom(search).then();
+    } else {
+        afficherToutesLesEntrees().then();
+    }
+
+});
 
 

@@ -6,18 +6,14 @@
     <link rel="stylesheet" href="js/css/index.css">
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
     <script type="module" src="js/index.js"></script>
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body>
 <header>
     <h1>WebDirectory</h1>
     <nav>
-        <!--<ul>
-            <li><a id="home">Accueil</a></li>
-            <li><a id="entreeService">Liste d'entrées par service</a></li>
-            <li><a id="entreeDept">Liste d'entrées par département</a></li>
-            <li><a id="entreeNom">Rechercher par nom</a></li>
-        </ul>-->
+
         <div id="filters">
             <select id="serviceSelect">
                 <option value="" disabled>Sélectionner un service</option>
@@ -29,10 +25,10 @@
                 <option value="" disabled>Sélectionner un département</option>
                 <option value="Tous">Tous</option>
             </select>
-            <button id="validerDepartement">Valider</button>
+        <button id="validerDepartement">Valider</button>
 
             <input type="text" id="searchInput" placeholder="Rechercher par nom">
-            <button id="validerRecherche">Rechercher</button>
+<!--            <button id="validerRecherche">Rechercher</button>-->
 
             <button id="reset">Réinitialiser les filtres</button>
         </div>

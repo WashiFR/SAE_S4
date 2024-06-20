@@ -27,7 +27,14 @@ export function afficherAnnuaire(annuaire) {
             cpt++
             dept +=`${departement.NomDep}` + (cpt < entree.departements.length ? ', ' : '')
         });
-        personDiv.innerHTML +=dept+`</p><p class="detailsEntree" data-id="${entree.id}">Voir la fiche détaillée</p>
+        personDiv.innerHTML +=dept+`</p>`
+        let servtxt = '<p>Services : '
+        cpt = 0;
+        entree.service.forEach(serv => {
+            cpt++
+            servtxt +=`${serv.NomService}` + (cpt < entree.service.length ? ', ' : '')
+        });
+        personDiv.innerHTML +=servtxt+`</p><p class="detailsEntree" data-id="${entree.id}">Voir la fiche détaillée</p>
         </div>`
         annuaireDiv.appendChild(personDiv);
     });
