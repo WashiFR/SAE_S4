@@ -1,10 +1,10 @@
 # SAE_S4
 SAE Atelier de développement d’application web Semestre 4
 ## Groupe
-* [WEIER Loris](https://github.com/WashiFR)
-* [JEANDIDIER Clément](https://github.com/KiSsWave)
-* [SZEZCPANSKI Gaëtan](https://github.com/Gaetan66)
-* [DEKERSABIEC Thomas](https://github.com/dekersab3u)
+* [WEIER Loris](https://github.com/WashiFR) : PHP Admin
+* [JEANDIDIER Clément](https://github.com/KiSsWave) : Mobile Flutter
+* [SZEZCPANSKI Gaëtan](https://github.com/Gaetan66) : PHP Api
+* [DEKERSABIEC Thomas](https://github.com/dekersab3u) : Web Javascript
 
 ## Docketu
 * Admin : http://docketu.iutnc.univ-lorraine.fr:14200
