@@ -153,12 +153,26 @@ div.entrees {
 }
 
 div.entree-card {
+    display: flex;
+    flex-direction: column;
     width: 300px;
     padding: 20px;
     background-color: white;
     border-radius: var(--border-radius);
     border: var(--border-color-lighter) solid 1px;
     box-shadow: 0 0 3px var(--border-color-lighter);
+}
+
+div.entree-card button {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: var(--border-radius);
+    border: var(--border-color) solid 1px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: auto;
 }
 
 div.entree-card-header {
@@ -173,7 +187,7 @@ div.entree-card-header h2 {
 div.entree-card-content {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin: 10px 0;
 }
 
 div.departements, div.services {

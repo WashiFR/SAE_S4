@@ -12,12 +12,28 @@
 <header>
     <h1>WebDirectory</h1>
     <nav>
-        <ul>
+        <!--<ul>
             <li><a id="home">Accueil</a></li>
             <li><a id="entreeService">Liste d'entrées par service</a></li>
             <li><a id="entreeDept">Liste d'entrées par département</a></li>
             <li><a id="entreeNom">Rechercher par nom</a></li>
-        </ul>
+        </ul>-->
+        <div id="filters">
+            <select id="serviceSelect">
+                <option value="">Sélectionner un service</option>
+            </select>
+            <button id="validerService">Valider</button>
+
+            <select id="departementSelect">
+                <option value="">Sélectionner un département</option>
+            </select>
+            <button id="validerDepartement">Valider</button>
+
+            <input type="text" id="searchInput" placeholder="Rechercher par nom">
+            <button id="validerRecherche">Rechercher</button>
+
+            <button id="reset">Réinitialiser les filtres</button>
+        </div>
     </nav>
 </header>
 <div id="nav_details">

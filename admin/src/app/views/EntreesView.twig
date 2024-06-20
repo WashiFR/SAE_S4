@@ -49,6 +49,11 @@
                         {% endfor %}
                     </div>
                 </div>
+                {% if entree.publiee == 1 %}
+                    <button onclick="window.location.href='{{ url_for('entrees.unpublish', {'id': entree.id}) }}'">Dépublier</button>
+                {% else %}
+                    <button onclick="window.location.href='{{ url_for('entrees.publish', {'id': entree.id}) }}'">Publier</button>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
