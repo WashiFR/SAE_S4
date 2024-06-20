@@ -47,7 +47,8 @@ class GetEntreesActions extends AbstractAction
                     "nom" => $ent['nom'],
                     "prenom" => $ent['prenom'],
                     "services" => $services,
-                    "departements" => $departments
+                    "departements" => $departments,
+                    "image" => $ent['img']
                 ],
                 "links" => [
                     "self" => [
