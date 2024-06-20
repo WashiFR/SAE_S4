@@ -21,38 +21,40 @@ class GetEntreeByIdAction extends AbstractAction
         $departments = [];
         if($sql){
             foreach($sql as $e){
-                $sql_bis = $service_service->getServicesByEntreeId($e['id']);
-                foreach ($sql_bis as $service){
-                    $services[] = [
-                        "NomService" => $service['nom']
-                    ];
-                }
-                $sql_dep = $service_service->getDepartementsByEntreeId($e['id']);
-                foreach ($sql_dep as $departement){
-                    $departments[] = [
-                        "NomDep" => $departement['nom']
-                    ];
-                }
-                $result_entree[] = [
-                    "entree" => [
-                        "id" => $e['id'],
-                        "nom" => $e['nom'],
-                        "prenom" => $e['prenom'],
-                        "fonction" => $e['fonction'],
-                        "NumeroBureau" => $e['num_bureau'],
-                        "NumeroFixe" => $e['num_fixe'],
-                        "NumeroMobile" => $e['num_mobile'],
-                        "Email" => $e['email'],
-                        "services" => $services,
-                        "departements" => $departments,
-                        'image' => $e['img']
-                    ],
-                    "links" => [
-                        "self" => [
-                            "href" => "/entrees/" . $e['id']
+                if($e['publiee']){
+                    $sql_bis = $service_service->getServicesByEntreeId($e['id']);
+                    foreach ($sql_bis as $service){
+                        $services[] = [
+                            "NomService" => $service['nom']
+                        ];
+                    }
+                    $sql_dep = $service_service->getDepartementsByEntreeId($e['id']);
+                    foreach ($sql_dep as $departement){
+                        $departments[] = [
+                            "NomDep" => $departement['nom']
+                        ];
+                    }
+                    $result_entree[] = [
+                        "entree" => [
+                            "id" => $e['id'],
+                            "nom" => $e['nom'],
+                            "prenom" => $e['prenom'],
+                            "fonction" => $e['fonction'],
+                            "NumeroBureau" => $e['num_bureau'],
+                            "NumeroFixe" => $e['num_fixe'],
+                            "NumeroMobile" => $e['num_mobile'],
+                            "Email" => $e['email'],
+                            "services" => $services,
+                            "departements" => $departments,
+                            'image' => $e['img']
+                        ],
+                        "links" => [
+                            "self" => [
+                                "href" => "/entrees/" . $e['id']
+                            ]
                         ]
-                    ]
-                ];
+                    ];
+                }
             }
             }
 
