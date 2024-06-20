@@ -15,7 +15,7 @@ SAE Atelier de développement d’application web Semestre 4
 
 ## Github
 
-Lien : https://github.com/WashiFR/SAE_S4
+* Dépôt : https://github.com/WashiFR/SAE_S4
 
 ## Comptes Admin
 
