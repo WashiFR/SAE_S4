@@ -111,7 +111,7 @@ class AnnuaireDetail extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            Divider(color: const Color.fromARGB(255, 90, 90, 90)),
+            const Divider(color: Color.fromARGB(255, 90, 90, 90)),
             const Row(
               children: [
                 Icon(Icons.phone, color: Color.fromARGB(255, 223, 223, 223)),
@@ -149,15 +149,19 @@ class AnnuaireDetail extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 5),
-            Text(
-              entree.numMobile,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Color.fromARGB(255, 223, 223, 223),
+            GestureDetector(
+              onTap: () => _launchPhone(entree.numMobile),
+              child: Text(
+                entree.numMobile,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Color.fromARGB(255, 26, 115, 189),
+                  decoration: TextDecoration.underline,
+                ),
               ),
             ),
             const SizedBox(height: 20),
-            Divider(color: const Color.fromARGB(255, 90, 90, 90)),
+            const Divider(color: Color.fromARGB(255, 90, 90, 90)),
             const Row(
               children: [
                 Icon(Icons.email, color: Colors.white),
@@ -184,25 +188,7 @@ class AnnuaireDetail extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            Divider(color: const Color.fromARGB(255, 90, 90, 90)),
-            const Text(
-              'Services:',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 223, 223, 223),
-              ),
-            ),
-            for (var service in entree.services)
-              Text(
-                '- ${service.nom} (${service.description})',
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Color.fromARGB(255, 223, 223, 223),
-                ),
-              ),
-            const SizedBox(height: 20),
-            Divider(color: const Color.fromARGB(255, 90, 90, 90)),
+            const Divider(color: Color.fromARGB(255, 90, 90, 90)),
             const Text(
               'Départements:',
               style: TextStyle(
@@ -213,7 +199,24 @@ class AnnuaireDetail extends StatelessWidget {
             ),
             for (var departement in entree.departements)
               Text(
-                '- ${departement.nom} (${departement.description})',
+                '- ${departement.nomDep}',
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Color.fromARGB(255, 223, 223, 223),
+                ),
+              ),
+            const Divider(color: Color.fromARGB(255, 90, 90, 90)),
+            const Text(
+              'Services:',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 223, 223, 223),
+              ),
+            ),
+            for (var service in entree.services)
+              Text(
+                '- ${service.nomService}',
                 style: const TextStyle(
                   fontSize: 14,
                   color: Color.fromARGB(255, 223, 223, 223),

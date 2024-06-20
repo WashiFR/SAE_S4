@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:webdir_app/data/data_generator.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:webdir_app/models/entree.dart';
-import 'package:webdir_app/screen/annuaire_detail.dart';
 import 'package:webdir_app/models/service.dart';
 import 'package:webdir_app/models/departement.dart';
-import 'package:webdir_app/widget/filter_dialog.dart';
-import 'package:webdir_app/widget/search_name.dart';
-import 'package:webdir_app/widget/sort_order_widget.dart';
 import 'package:webdir_app/screen/annuaire_preview.dart';
+import 'package:webdir_app/widget/search_name.dart';
+import 'package:webdir_app/widget/filter_dialog.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AnnuaireMaster extends StatefulWidget {
   @override
@@ -15,80 +15,118 @@ class AnnuaireMaster extends StatefulWidget {
 }
 
 class _AnnuaireMasterState extends State<AnnuaireMaster> {
-  List<Entree> entrees;
-  List<Entree> filteredEntrees;
-  List<Service> services;
-  List<Departement> departements;
+  late Future<List<Entree>> futureEntrees;
+  final TextEditingController searchController = TextEditingController();
+  String searchQuery = '';
+  List<Entree> entrees = [];
+  List<Service> services = [];
+  List<Departement> departements = [];
   String? selectedService;
   String? selectedDepartement;
-  String sortOrder = 'asc';
-  TextEditingController searchController = TextEditingController();
-
-  _AnnuaireMasterState()
-      : entrees = DataGenerator().generateEntrees(10),
-        filteredEntrees = [],
-        services = [],
-        departements = [] {
-    filteredEntrees = entrees;
-    services = entrees.expand((e) => e.services).toSet().toList();
-    departements = entrees.expand((e) => e.departements).toSet().toList();
-  }
+  bool isAscending = true;
 
   @override
   void initState() {
     super.initState();
-    filterEntrees();
-  }
-
-  void filterEntrees() {
-    setState(() {
-      filteredEntrees = entrees.where((entree) {
-        final matchesService = selectedService == null ||
-            selectedService!.isEmpty ||
-            entree.services.any((s) => s.nom.contains(selectedService!));
-        final matchesDepartement = selectedDepartement == null ||
-            selectedDepartement!.isEmpty ||
-            entree.departements
-                .any((d) => d.nom.contains(selectedDepartement!));
-        final matchesName = searchController.text.isEmpty ||
-            entree.nom
-                .toLowerCase()
-                .contains(searchController.text.toLowerCase()) ||
-            entree.prenom
-                .toLowerCase()
-                .contains(searchController.text.toLowerCase());
-        return matchesService && matchesDepartement && matchesName;
-      }).toList();
-      sortEntrees();
-    });
-  }
-
-  void sortEntrees() {
-    setState(() {
-      filteredEntrees.sort((a, b) {
-        int cmp = a.nom.compareTo(b.nom);
-        if (cmp == 0) {
-          cmp = a.prenom.compareTo(b.prenom);
-        }
-        return sortOrder == 'asc' ? cmp : -cmp;
+    fetchServicesAndDepartments();
+    futureEntrees = fetchEntrees();
+    searchController.addListener(() {
+      setState(() {
+        searchQuery = searchController.text;
+        applyFilters();
       });
     });
   }
 
-  void resetFilters() {
+  Future<List<Entree>> fetchEntrees({String query = ''}) async {
+    final order = isAscending ? 'nom-asc' : 'nom-desc';
+    final baseUrl = dotenv.env['API_BASE_URL']!;
+    final url = query.isEmpty
+        ? '$baseUrl/entrees?sort=$order'
+        : '$baseUrl/entrees/search?q=$query&sort=$order';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      List<Entree> entrees = [];
+      for (var e in jsonResponse['entrees']) {
+        try {
+          var entree = Entree.fromJson(e['entree']);
+          entrees.add(entree);
+        } catch (error) {
+          print('Error parsing entree: $error');
+        }
+      }
+      return entrees;
+    } else {
+      throw Exception('Failed to load entrees');
+    }
+  }
+
+  Future<void> fetchServicesAndDepartments() async {
+    final baseUrl = dotenv.env['API_BASE_URL']!;
+    final servicesResponse = await http.get(Uri.parse('$baseUrl/services'));
+    if (servicesResponse.statusCode == 200) {
+      var jsonResponse = json.decode(servicesResponse.body);
+      setState(() {
+        services = (jsonResponse['services'] as List)
+            .map((data) => Service.fromJson(data['service']))
+            .toList();
+      });
+    } else {
+      throw Exception('Failed to load services');
+    }
+
+    final departmentsResponse =
+        await http.get(Uri.parse('$baseUrl/departements'));
+    if (departmentsResponse.statusCode == 200) {
+      var jsonResponse = json.decode(departmentsResponse.body);
+      setState(() {
+        departements = (jsonResponse['departements'] as List)
+            .map((data) => Departement.fromJson(data['departement']))
+            .toList();
+      });
+    } else {
+      throw Exception('Failed to load departments');
+    }
+  }
+
+  void applyFilters() {
     setState(() {
-      selectedService = null;
-      selectedDepartement = null;
-      searchController.clear();
-      filteredEntrees = entrees;
-      sortEntrees();
+      futureEntrees = fetchEntrees().then((entries) {
+        return filterAndSortEntrees(entries);
+      });
     });
+  }
+
+  List<Entree> filterAndSortEntrees(List<Entree> entries) {
+    List<Entree> filteredEntries = entries;
+
+    if (selectedService != null && selectedService!.isNotEmpty) {
+      filteredEntries = filteredEntries.where((entry) {
+        return entry.services.any((s) => s.nomService == selectedService);
+      }).toList();
+    }
+
+    if (selectedDepartement != null && selectedDepartement!.isNotEmpty) {
+      filteredEntries = filteredEntries.where((entry) {
+        return entry.departements.any((d) => d.nomDep == selectedDepartement);
+      }).toList();
+    }
+
+    if (searchQuery.isNotEmpty) {
+      filteredEntries = filteredEntries.where((entry) {
+        return entry.nom.toLowerCase().contains(searchQuery.toLowerCase()) ||
+            entry.prenom.toLowerCase().contains(searchQuery.toLowerCase());
+      }).toList();
+    }
+
+    return filteredEntries;
   }
 
   void openFilterDialog() {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return FilterDialog(
           services: services,
           departements: departements,
@@ -97,80 +135,89 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
           onServiceChanged: (value) {
             setState(() {
               selectedService = value;
+              applyFilters();
             });
           },
           onDepartementChanged: (value) {
             setState(() {
               selectedDepartement = value;
+              applyFilters();
             });
           },
-          onReset: resetFilters,
+          onReset: () {
+            setState(() {
+              selectedService = null;
+              selectedDepartement = null;
+              applyFilters();
+            });
+          },
         );
       },
-    ).then((_) {
-      filterEntrees();
-    });
+    );
   }
 
-  String getInitials(String prenom, String nom) {
-    return "${prenom[0].toUpperCase()}${nom[0].toUpperCase()}";
+  void toggleSortOrder() {
+    setState(() {
+      isAscending = !isAscending;
+      futureEntrees = fetchEntrees(query: searchQuery);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Annuaire',
-            style: TextStyle(color: Color.fromARGB(255, 223, 223, 223))),
-        backgroundColor: Color.fromARGB(255, 46, 42, 46),
+        title: Text('Annuaire', style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.grey[900],
+        iconTheme: IconThemeData(color: Colors.white),
         actions: [
           IconButton(
-            icon: const Icon(Icons.filter_list,
-                color: Color.fromARGB(255, 223, 223, 223)),
-            onPressed: openFilterDialog,
+            icon: Icon(isAscending ? Icons.arrow_upward : Icons.arrow_downward),
+            onPressed: toggleSortOrder,
           ),
-          SortOrderWidget(
-            sortOrder: sortOrder,
-            onSortOrderChanged: (value) {
-              setState(() {
-                sortOrder = value;
-                sortEntrees();
-              });
-            },
+          IconButton(
+            icon: Icon(Icons.filter_list),
+            onPressed: openFilterDialog,
           ),
         ],
       ),
-      body: Column(children: [
-        SearchName(
-          controller: searchController,
-          onChanged: (value) {
-            filterEntrees();
-          },
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: filteredEntrees.length,
-            itemBuilder: (context, index) {
-              var entree = filteredEntrees[index];
-              return Column(
-                children: [
-                  GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                AnnuaireDetail(entree: entree))),
-                    child: AnnuairePreview(
-                      entree: entree,
-                    ),
-                  ),
-                  Divider(color: const Color.fromARGB(255, 90, 90, 90)),
-                ],
-              );
+      body: Column(
+        children: [
+          SearchName(
+            controller: searchController,
+            onChanged: (text) {
+              setState(() {
+                searchQuery = text;
+                applyFilters();
+              });
             },
           ),
-        ),
-      ]),
+          Expanded(
+            child: FutureBuilder<List<Entree>>(
+              future: futureEntrees,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final filteredEntrees = filterAndSortEntrees(snapshot.data!);
+                  return ListView.builder(
+                    itemCount: filteredEntrees.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          AnnuairePreview(entree: filteredEntrees[index]),
+                          Divider(color: const Color.fromARGB(255, 90, 90, 90)),
+                        ],
+                      );
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                }
+                return Center(child: CircularProgressIndicator());
+              },
+            ),
+          ),
+        ],
+      ),
       backgroundColor: Colors.grey[900],
     );
   }
