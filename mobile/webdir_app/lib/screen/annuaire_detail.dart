@@ -16,8 +16,8 @@ class AnnuaireDetail extends StatelessWidget {
       scheme: 'mailto',
       path: email,
     );
-    if (await canLaunch(emailUri.toString())) {
-      await launch(emailUri.toString());
+    if (await canLaunchUrl(emailUri)) {
+      await launchUrl(emailUri);
     } else {
       throw 'Could not launch $emailUri';
     }
@@ -28,8 +28,8 @@ class AnnuaireDetail extends StatelessWidget {
       scheme: 'tel',
       path: phoneNumber,
     );
-    if (await canLaunch(phoneUri.toString())) {
-      await launch(phoneUri.toString());
+    if (await canLaunchUrl(phoneUri)) {
+      await launchUrl(phoneUri);
     } else {
       throw 'Could not launch $phoneUri';
     }
