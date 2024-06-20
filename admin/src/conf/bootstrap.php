@@ -14,6 +14,7 @@ Eloquent::init(__DIR__ . '/conf.ini');
 $twig = Twig::create(__DIR__ . '/../app/views', ['cache' => false]);
 
 $twig->getEnvironment()->addGlobal('globals', [
+    'img_dir' => 'assets/img',
     'css_dir' => 'assets/css',
     'session_admin' => $_SESSION['admin'] ?? null,
     'admin' => \admin\core\domain\entities\Admin::ADMIN,

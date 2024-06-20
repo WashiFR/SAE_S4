@@ -71,6 +71,7 @@ class EntreService implements IEntreeService
     public function createEntree(array $data, array $dep_id, array $serv_id): int
     {
         $entree = new Entree();
+        $entree->img = $data['img'];
         $entree->nom = $data['nom'];
         $entree->prenom = $data['prenom'];
         $entree->fonction = $data['fonction'];

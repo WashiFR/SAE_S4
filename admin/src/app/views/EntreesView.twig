@@ -27,7 +27,14 @@
     <div class="entrees">
         {% for entree in entrees %}
             <div class="entree-card">
-                <h2>{{ entree.nom }} {{ entree.prenom }}</h2>
+                <div class="entree-card-header">
+                    {% if entree.img %}
+                        <img src="{{ base_path() }}/{{ globals.img_dir }}/{{ entree.img }}" alt="{{ entree.nom }} {{ entree.prenom }}">
+                    {% else %}
+                        <img src="{{ base_path() }}/{{ globals.img_dir }}/default-profile.jpg" alt="{{ entree.nom }} {{ entree.prenom }}">
+                    {% endif %}
+                    <h2>{{ entree.nom }} {{ entree.prenom }}</h2>
+                </div>
                 <div class="entree-card-content">
                     <div class="departements">
                         <h4>Départements</h4>

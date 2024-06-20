@@ -3,7 +3,10 @@
 {% block content %}
     <div class="content-form">
         <h1>Créer une nouvelle Entrée</h1>
-        <form action="{{ url_for('entrees.create') }}" method="post" onsubmit="return validateCheckboxes()">
+        <form action="{{ url_for('entrees.create') }}" method="post" enctype="multipart/form-data" onsubmit="return validateCheckboxes()">
+            <p>{{ base_path() }}</p>
+            <img src="{{ base_path() }}/{{ globals.img_dir }}/default-profile.jpg" id="img-preview">
+            <input type="file" name="img" id="img" accept="image/*" onchange="readURL(this)">
             <div class="group-input">
                 <input type="text" name="nom" id="nom" placeholder="Nom" required>
                 <input type="text" name="prenom" id="prenom" placeholder="Prénom" required>
@@ -60,5 +63,20 @@
 
             return true;
         }
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('img-preview').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        const imgInput = document.getElementById('img');
+        const imgPreview = document.getElementById('img-preview');
+
+        imgPreview.addEventListener('click', () => imgInput.click());
     </script>
 {% endblock %}
