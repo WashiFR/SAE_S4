@@ -35,8 +35,7 @@ class AnnuairePreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: InitialCircle(
-        initials: getInitials(entree.prenom, entree.nom),
-      ),
+          initials: getInitials(entree.prenom, entree.nom), size: 20),
       title: Text('${entree.prenom} ${entree.nom}',
           style: const TextStyle(color: Color.fromARGB(255, 223, 223, 223))),
       subtitle: Text(entree.departements.map((d) => d.nomDep).join(", "),

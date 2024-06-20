@@ -22,6 +22,7 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
   List<Departement> departements = [];
   String? selectedService;
   String? selectedDepartement;
+  bool isAscending = true;
 
   @override
   void initState() {
@@ -36,8 +37,11 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
     });
   }
 
-  Future<List<Entree>> fetchEntrees() async {
-    final url = 'http://docketu.iutnc.univ-lorraine.fr:14201/api/entrees';
+  Future<List<Entree>> fetchEntrees({String query = ''}) async {
+    final order = isAscending ? 'nom-asc' : 'nom-desc';
+    final url = query.isEmpty
+        ? 'http://docketu.iutnc.univ-lorraine.fr:14201/api/entrees?sort=$order'
+        : 'http://docketu.iutnc.univ-lorraine.fr:14201/api/entrees/search?q=$query&sort=$order';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
@@ -75,8 +79,8 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
     if (departmentsResponse.statusCode == 200) {
       var jsonResponse = json.decode(departmentsResponse.body);
       setState(() {
-        departements = (jsonResponse['départements'] as List)
-            .map((data) => Departement.fromJson(data['département']))
+        departements = (jsonResponse['departements'] as List)
+            .map((data) => Departement.fromJson(data['departement']))
             .toList();
       });
     } else {
@@ -150,14 +154,25 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
     );
   }
 
+  void toggleSortOrder() {
+    setState(() {
+      isAscending = !isAscending;
+      futureEntrees = fetchEntrees(query: searchQuery);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Annuaire des Entrées'),
+        title: Text('Annuaire', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.grey[900],
         iconTheme: IconThemeData(color: Colors.white),
         actions: [
+          IconButton(
+            icon: Icon(isAscending ? Icons.arrow_upward : Icons.arrow_downward),
+            onPressed: toggleSortOrder,
+          ),
           IconButton(
             icon: Icon(Icons.filter_list),
             onPressed: openFilterDialog,
@@ -174,66 +189,6 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
                 applyFilters();
               });
             },
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: DropdownButton<String>(
-                  value: selectedService,
-                  hint: const Text(
-                    'Service',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 223, 223, 223),
-                    ),
-                  ),
-                  items: services.map((service) {
-                    return DropdownMenuItem<String>(
-                      value: service.nomService,
-                      child: Text(service.nomService,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Color.fromARGB(255, 223, 223, 223),
-                          )),
-                    );
-                  }).toList(),
-                  dropdownColor: Colors.grey[900],
-                  onChanged: (value) {
-                    setState(() {
-                      selectedService = value;
-                      applyFilters();
-                    });
-                  },
-                ),
-              ),
-              Expanded(
-                child: DropdownButton<String>(
-                  value: selectedDepartement,
-                  hint: const Text(
-                    'Departement',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 223, 223, 223),
-                    ),
-                  ),
-                  items: departements.map((departement) {
-                    return DropdownMenuItem<String>(
-                      value: departement.nomDep,
-                      child: Text(departement.nomDep,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Color.fromARGB(255, 223, 223, 223),
-                          )),
-                    );
-                  }).toList(),
-                  dropdownColor: Colors.grey[900],
-                  onChanged: (value) {
-                    setState(() {
-                      selectedDepartement = value;
-                      applyFilters();
-                    });
-                  },
-                ),
-              ),
-            ],
           ),
           Expanded(
             child: FutureBuilder<List<Entree>>(
