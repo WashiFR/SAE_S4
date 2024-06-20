@@ -18,12 +18,19 @@ class GetEntreeByIdAction extends AbstractAction
         $service_service = new DepartementService();
         $sql = $entree_service->getEntreeById($entree_id);
         $services = [];
+        $departments = [];
         if($sql){
             foreach($sql as $e){
                 $sql_bis = $service_service->getServicesByEntreeId($e['id']);
                 foreach ($sql_bis as $service){
                     $services[] = [
-                        "Nom du département" => $service['nom']
+                        "NomService" => $service['nom']
+                    ];
+                }
+                $sql_dep = $service_service->getDepartementsByEntreeId($e['id']);
+                foreach ($sql_dep as $departement){
+                    $departments[] = [
+                        "NomDep" => $departement['nom']
                     ];
                 }
                 $result_entree[] = [
@@ -32,15 +39,17 @@ class GetEntreeByIdAction extends AbstractAction
                         "nom" => $e['nom'],
                         "prenom" => $e['prenom'],
                         "fonction" => $e['fonction'],
-                        "Numéro de bureau" => $e['num_bureau'],
-                        "Numéro de téléphone fixe" => $e['num_fixe'],
-                        "Numéro de téléphone mobile" => $e['num_mobile'],
+                        "NumeroBureau" => $e['num_bureau'],
+                        "NumeroFixe" => $e['num_fixe'],
+                        "NumeroMobile" => $e['num_mobile'],
                         "Email" => $e['email'],
-                        "departement" => $services
+                        "services" => $services,
+                        "departements" => $departments,
+                        'image' => $e['img']
                     ],
                     "links" => [
                         "self" => [
-                            "href" => "/entree/" . $e['id']
+                            "href" => "/entrees/" . $e['id']
                         ]
                     ]
                 ];
@@ -49,6 +58,8 @@ class GetEntreeByIdAction extends AbstractAction
 
         $data = ['type' => 'collection', 'count' => count($result_entree), 'entrees' => $result_entree];
         $response->getBody()->write(json_encode($data));
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }

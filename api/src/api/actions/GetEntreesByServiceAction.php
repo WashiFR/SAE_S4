@@ -26,7 +26,7 @@ class GetEntreesByServiceAction extends AbstractAction
                 $sql_bis = $service_service->getServicesByEntreeId($entree['id']);
                 foreach ($sql_bis as $service){
                     $result_services[] = [
-                        "Nom du département" => $service['nom']
+                        "NomDep" => $service['nom']
                     ];
                 }
                 $result_entrees[] = [
@@ -34,7 +34,8 @@ class GetEntreesByServiceAction extends AbstractAction
                         "id" => $entree['id'],
                         "nom" => $entree['nom'],
                         "prenom" => $entree['prenom'],
-                        "Départements" => $result_services
+                        "departements" => $result_services,
+                        "image" => $entree['img']
                     ],
                     "links" => [
                         "self" => [
@@ -46,6 +47,8 @@ class GetEntreesByServiceAction extends AbstractAction
         }
         $data = ['type' => 'collection', 'count' => count($entrees), 'entrees' => $result_entrees];
         $response->getBody()->write(json_encode($data));
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }

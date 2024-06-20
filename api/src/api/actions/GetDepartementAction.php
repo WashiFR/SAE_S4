@@ -18,7 +18,7 @@ class GetDepartementAction extends AbstractAction
         $departements = [];
         foreach ($sql as $dep) {
             $departements[] = [
-                "département" => [
+                "departement" => [
                     "id" => $dep['id'],
                     "nom" => $dep['nom'],
                     "etage" => $dep['etage'],
@@ -32,8 +32,10 @@ class GetDepartementAction extends AbstractAction
             ];
         }
 
-        $data = ['type' => 'collection', 'count' => count($departements), 'départements' => $departements];
+        $data = ['type' => 'collection', 'count' => count($departements), 'departements' => $departements];
         $response->getBody()->write(json_encode($data));
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }

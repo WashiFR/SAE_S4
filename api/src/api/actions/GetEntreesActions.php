@@ -28,22 +28,31 @@ class GetEntreesActions extends AbstractAction
         $entrees = [];
         foreach ($sql as $ent) {
             $services = [];
+            $departments = [];
             $sql_bis = $service_service->getServicesByEntreeId($ent['id']);
             foreach ($sql_bis as $service){
                 $services[] = [
-                    "Nom du département" => $service['nom']
+                    "NomService" => $service['nom']
                     ];
+            }
+            $sql_dep = $service_service->getDepartementsByEntreeId($ent['id']);
+            foreach ($sql_dep as $departement){
+                $departments[] = [
+                    "NomDep" => $departement['nom']
+                ];
             }
             $entrees[] = [
                 "entree" => [
                     "id" => $ent['id'],
                     "nom" => $ent['nom'],
                     "prenom" => $ent['prenom'],
-                    "departement" => $services
+                    "services" => $services,
+                    "departements" => $departments,
+                    "image" => $ent['img']
                 ],
                 "links" => [
                     "self" => [
-                        "href" => "/entree/" . $ent['id']
+                        "href" => "/entrees/" . $ent['id']
                     ]
                 ]
             ];
@@ -51,6 +60,8 @@ class GetEntreesActions extends AbstractAction
 
         $data = ['type' => 'collection', 'count' => count($entrees), 'entrees' => $entrees];
         $response->getBody()->write(json_encode($data));
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }

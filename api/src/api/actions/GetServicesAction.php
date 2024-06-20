@@ -19,7 +19,7 @@ class GetServicesAction extends AbstractAction
         $services = [];
         foreach ($sql as $ser) {
             $services[] = [
-                "services" => [
+                "service" => [
                     "id" => $ser['id'],
                     "nom" => $ser['nom'],
                     "etage" => $ser['etage'],
@@ -35,6 +35,8 @@ class GetServicesAction extends AbstractAction
 
         $data = ['type' => 'collection', 'count' => count($services), 'services' => $services];
         $response->getBody()->write(json_encode($data));
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     }
 }

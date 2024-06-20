@@ -1,22 +1,84 @@
 {% extends 'SkeletonView.twig' %}
 
 {% block content %}
-    <h1>Créer une nouvelle Entrée</h1>
-    <form action="{{ url_for('entrees.create') }}" method="post">
-        <label for="nom">Nom</label>
-        <input type="text" name="nom" id="nom">
-        <label for="prenom">Prénom</label>
-        <input type="text" name="prenom" id="prenom">
-        <label for="fonction">Fonction</label>
-        <input type="text" name="fonction" id="fonction">
-        <label for="num_bureau">Numéro de bureau</label>
-        <input type="text" name="num_bureau" id="num_bureau">
-        <label for="num_fixe">Numéro de téléphone fixe</label>
-        <input type="text" name="num_fixe" id="num_fixe">
-        <label for="num_mobile">Numéro de téléphone mobile</label>
-        <input type="text" name="num_mobile" id="num_mobile">
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email">
-        <button type="submit">Ajouter</button>
-    </form>
+    <div class="content-form">
+        <h1>Créer une nouvelle Entrée</h1>
+        <form action="{{ url_for('entrees.create') }}" method="post" enctype="multipart/form-data" onsubmit="return validateCheckboxes()">
+            <p>{{ base_path() }}</p>
+            <img src="{{ base_path() }}/{{ globals.img_dir }}/default-profile.jpg" id="img-preview">
+            <input type="file" name="img" id="img" accept="image/*" onchange="readURL(this)">
+            <div class="group-input">
+                <input type="text" name="nom" id="nom" placeholder="Nom" required>
+                <input type="text" name="prenom" id="prenom" placeholder="Prénom" required>
+            </div>
+            <div class="group-input">
+                <input type="text" name="fonction" id="fonction" placeholder="Fonction" required>
+                <input type="text" name="num_bureau" id="num_bureau" placeholder="Numéro de bureau" required>
+            </div>
+            <div class="group-input">
+                <input type="tel" name="num_fixe" id="num_fixe" placeholder="Numéro fixe">
+                <input type="tel" name="num_mobile" id="num_mobile" placeholder="Numéro mobile" required>
+            </div>
+            <input type="email" name="email" id="email" placeholder="Email" required>
+            <div class="group-input-checkbox">
+                <h4>Départements</h4>
+                <div id="departements">
+                    {% for departement in departements %}
+                        <label>
+                            <input type="checkbox" class="departement-checkbox" name="departements_id[]" value="{{ departement.id }}">
+                            {{ departement.nom }}
+                        </label><br>
+                    {% endfor %}
+                </div>
+                <h4>Services</h4>
+                <div id="services">
+                    {% for service in services %}
+                        <label>
+                            <input type="checkbox" class="service-checkbox" name="services_id[]" value="{{ service.id }}">
+                            {{ service.nom }}
+                        </label><br>
+                    {% endfor %}
+                </div>
+            </div>
+            <input type="hidden" name="csrf" value="{{ csrf }}">
+            <input type="submit" value="Créer">
+        </form>
+    </div>
+
+    <script>
+        function validateCheckboxes() {
+            const departementCheckboxes = document.querySelectorAll('.departement-checkbox');
+            const serviceCheckboxes = document.querySelectorAll('.service-checkbox');
+
+            const isDepartementChecked = Array.from(departementCheckboxes).some(checkbox => checkbox.checked);
+            const isServiceChecked = Array.from(serviceCheckboxes).some(checkbox => checkbox.checked);
+
+            if (!isDepartementChecked) {
+                alert('Veuillez sélectionner au moins un département.');
+                return false;
+            }
+
+            if (!isServiceChecked) {
+                alert('Veuillez sélectionner au moins un service.');
+                return false;
+            }
+
+            return true;
+        }
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('img-preview').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        const imgInput = document.getElementById('img');
+        const imgPreview = document.getElementById('img-preview');
+
+        imgPreview.addEventListener('click', () => imgInput.click());
+    </script>
 {% endblock %}

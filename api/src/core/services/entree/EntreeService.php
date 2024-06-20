@@ -2,6 +2,7 @@
 
 namespace api\core\services\entree;
 
+use api\core\domain\Departement;
 use api\core\domain\Entree;
 use api\core\domain\Service;
 use api\core\services\entree\IEntreeService;
@@ -33,6 +34,17 @@ class EntreeService implements IEntreeService
         try{
             $service = Service::find($id);
             $sql = $service->entrees;
+        }catch(\Exception $e) {
+            throw new EntreeServiceNotFoundException('Erreur 404 : Aucune entree trouvée', 404);
+        }
+        return $sql->toArray();
+    }
+
+    public  function getEntreeByDepartmentID(int $id): array
+    {
+        try{
+            $dep = Departement::find($id);
+            $sql = $dep->entrees;
         }catch(\Exception $e) {
             throw new EntreeServiceNotFoundException('Erreur 404 : Aucune entree trouvée', 404);
         }
