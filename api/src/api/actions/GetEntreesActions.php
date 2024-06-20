@@ -29,33 +29,36 @@ class GetEntreesActions extends AbstractAction
         foreach ($sql as $ent) {
             $services = [];
             $departments = [];
-            $sql_bis = $service_service->getServicesByEntreeId($ent['id']);
-            foreach ($sql_bis as $service){
-                $services[] = [
-                    "NomService" => $service['nom']
+            if ($ent['publiee']){
+                $sql_bis = $service_service->getServicesByEntreeId($ent['id']);
+                foreach ($sql_bis as $service){
+                    $services[] = [
+                        "NomService" => $service['nom']
                     ];
-            }
-            $sql_dep = $service_service->getDepartementsByEntreeId($ent['id']);
-            foreach ($sql_dep as $departement){
-                $departments[] = [
-                    "NomDep" => $departement['nom']
+                }
+                $sql_dep = $service_service->getDepartementsByEntreeId($ent['id']);
+                foreach ($sql_dep as $departement){
+                    $departments[] = [
+                        "NomDep" => $departement['nom']
+                    ];
+                }
+                $entrees[] = [
+                    "entree" => [
+                        "id" => $ent['id'],
+                        "nom" => $ent['nom'],
+                        "prenom" => $ent['prenom'],
+                        "services" => $services,
+                        "departements" => $departments,
+                        "image" => $ent['img']
+                    ],
+                    "links" => [
+                        "self" => [
+                            "href" => "/entrees/" . $ent['id']
+                        ]
+                    ]
                 ];
             }
-            $entrees[] = [
-                "entree" => [
-                    "id" => $ent['id'],
-                    "nom" => $ent['nom'],
-                    "prenom" => $ent['prenom'],
-                    "services" => $services,
-                    "departements" => $departments,
-                    "image" => $ent['img']
-                ],
-                "links" => [
-                    "self" => [
-                        "href" => "/entrees/" . $ent['id']
-                    ]
-                ]
-            ];
+
         }
 
         $data = ['type' => 'collection', 'count' => count($entrees), 'entrees' => $entrees];

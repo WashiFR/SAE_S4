@@ -23,26 +23,30 @@ class GetEntreesByServiceAction extends AbstractAction
             $result_entrees = [];
             foreach ($entrees as $entree){
                 $result_services = [];
-                $sql_bis = $service_service->getServicesByEntreeId($entree['id']);
-                foreach ($sql_bis as $service){
-                    $result_services[] = [
-                        "NomDep" => $service['nom']
+                if($entree['publiee']){
+                    $sql_bis = $service_service->getServicesByEntreeId($entree['id']);
+                    foreach ($sql_bis as $service){
+                        $result_services[] = [
+                            "NomDep" => $service['nom']
+                        ];
+                    }
+                    $result_entrees[] = [
+                        "entree" => [
+                            "id" => $entree['id'],
+                            "nom" => $entree['nom'],
+                            "prenom" => $entree['prenom'],
+                            "departements" => $result_services,
+                            "image" => $entree['img']
+                        ],
+                        "links" => [
+                            "self" => [
+                                "href" => "/entrees/" . $entree['id']
+                            ]
+                        ]
                     ];
                 }
-                $result_entrees[] = [
-                    "entree" => [
-                        "id" => $entree['id'],
-                        "nom" => $entree['nom'],
-                        "prenom" => $entree['prenom'],
-                        "departements" => $result_services,
-                        "image" => $entree['img']
-                    ],
-                    "links" => [
-                        "self" => [
-                            "href" => "/entrees/" . $entree['id']
-                        ]
-                    ]
-                ];
+
+
             }
         }
         $data = ['type' => 'collection', 'count' => count($entrees), 'entrees' => $result_entrees];
