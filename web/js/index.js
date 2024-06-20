@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('click', (event) => {
         if (document.getElementById('retour')) {
-            document.getElementById('annuaire').innerHTML = '';
+            document.getElementById('ficheDetails').innerHTML = '';
             afficherToutesLesEntrees().then();
         }
     });
