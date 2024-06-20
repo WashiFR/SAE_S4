@@ -5,17 +5,28 @@ import {
     parseEntries,
     fetchAllEntries, fetchDepartementById, fetchServices, parseServices
 } from './webdirloader.js';
-import {afficherAnnuaire} from "./dir_ui";
+import {afficherAnnuaire} from "./dir_ui.js";
 
 export async function afficherTriParDepartement() {
-    const selectedDept = document.getElementById('departementSelect').value;
-    if (selectedDept) {
+    const selectedDepartement = document.getElementById('departementSelect').value;
+    if (selectedDepartement) {
+        let filtered = []
         const allEntries = await fetchAllEntries();
-        const parsedEntries = parseDepartements(allEntries);
-        const filteredEntries = parsedEntries.filter(entree =>
-            entree.departement && entree.departement.some(dep => dep.nomDep === selectedDept)
-        );
-        afficherAnnuaire(filteredEntries);
+        if(selectedDepartement === "Tous") {
+            filtered =  allEntries;
+        } else {
+            allEntries.forEach(ent => {
+                const remaining_element = ent.departements.filter((val, key) => val.NomDep === selectedDepartement);
+                if(remaining_element.length > 0) {
+                    filtered.push(ent)
+                }
+            })
+        }
+        filtered.sort(function (a, b) {
+            return a.nom.localeCompare(b.nom);
+        });
+
+        afficherAnnuaire(filtered);
     } else {
         alert('Veuillez sélectionner un département.');
     }
@@ -42,7 +53,6 @@ export async function afficherTriParDepartement() {
             // Intégration de la liste dans le HTML final
             navDetailsDiv.innerHTML += list + `</select>
         <button id="validerDepartement">Valider</button>`
-        debugger
         const button = document.getElementById('validerDepartement');
         button.addEventListener('click', async () => {
             const selectedDeptId = document.getElementById('departementSelect').value;
@@ -88,12 +98,13 @@ function afficherResultatsParDepartement(entrees, deptf) {
 export async function remplirDepartements() {
     const data = await fetchDepartements();
     const departements = parseDepartements(data);
+
     console.log(departements);
     const departementSelect = document.getElementById('departementSelect');
     departements.forEach(departement => {
         const option = document.createElement('option');
-        option.value = departement.NomDep;
-        option.text = departement.NomDep;
+        option.value = departement.departement.nom;
+        option.text = departement.departement.nom;
         departementSelect.appendChild(option);
     });
 }

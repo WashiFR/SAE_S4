@@ -100,6 +100,47 @@ nav ul li a:hover {
     cursor: pointer;
 }
 
+#ficheContent {
+    border: 0.1vw solid #ccc; /* Bordure grise légère */
+    padding: 2vh 2vw; /* Espacement intérieur */
+    margin: 2vh auto; /* Marges verticales et centré horizontalement */
+    width: 60vw; /* Largeur de 60% de la vue de l'écran */
+    min-width: 40vw; /* Largeur minimale pour garantir la lisibilité sur petits écrans */
+    max-width: 80vw; /* Largeur maximale pour ne pas trop étirer */
+    background-color: #f9f9f9; /* Couleur de fond légèrement grise */
+    color: #000; /* Couleur de texte noir */
+    box-shadow: 0 0 1vw rgba(0, 0, 0, 0.1); /* Légère ombre pour un effet de profondeur */
+    border-radius: 1em; /* Coins arrondis */
+}
+
+#ficheContent h2 {
+    font-size: 2em; /* Taille de police plus grande pour le nom/prénom */
+    margin-bottom: 1vh; /* Espacement inférieur pour séparer du contenu suivant */
+    color: #333; /* Couleur de texte */
+}
+
+#ficheContent p {
+    font-size: 1em; /* Taille de police normale pour les autres informations */
+    line-height: 1.5; /* Hauteur de ligne pour compacter le texte */
+    margin: 0.5vh 0; /* Marges verticales compactes */
+    color: #555; /* Couleur de texte légèrement grisée */
+}
+
+#ficheContent a {
+    display: inline-block; /* Affichage en ligne avec bloc */
+    margin-top: 1.5vh; /* Marge supérieure pour espacer du reste du contenu */
+    padding: 1vh 1.5vw; /* Espacement intérieur */
+    background-color: #007BFF; /* Couleur de fond bleue */
+    color: #fff; /* Couleur de texte blanche */
+    text-decoration: none; /* Suppression de la décoration de texte par défaut */
+    border-radius: 0.5em; /* Coins arrondis */
+    transition: background-color 0.3s; /* Transition pour l'effet de survol */
+}
+
+#ficheContent a:hover {
+    background-color: #0056b3; /* Couleur de fond plus foncée au survol */
+}
+
 footer {
     font-size: 0.8vw;
     background-color: #444;

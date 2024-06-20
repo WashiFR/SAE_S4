@@ -57,10 +57,9 @@ export async function parseEntry(dataUser) {
 
 }
 
-export async function fetchFilteredEntries(queryParams) {
-    const query = new URLSearchParams(queryParams).toString();
+export async function fetchFilteredEntries(search) {
     try {
-        const response = await fetch(`${API_URL}/entrees/search?${query}`);
+        const response = await fetch(`${API_URL}/entrees/search?q=${search}`);
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
@@ -94,12 +93,16 @@ export async function fetchDepartementById(id) {
 }
 
     export function parseDepartements(data) {
-    //console.log(data);
-        return Object.values(data.departements).map(item => ({
-            id: item.departement.id,
-            NomDep: item.departement.nom,
-            description: item.departement.description
-        }));
+
+    return data.departements;
+    //     sortie.sort((a, b) => a.nom.localeCompare(b.nom));
+    //
+    // //console.log(data);
+    //     return Object.values(data.departements).map(item => ({
+    //         id: item.departement.id,
+    //         NomDep: item.departement.nom,
+    //         description: item.departement.description
+    //     }));
     }
 
 export async function fetchServices() {

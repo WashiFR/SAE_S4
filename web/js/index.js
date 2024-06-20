@@ -24,6 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// bouton retour depuis une fiche detaillee
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', (event) => {
+        if (document.getElementById('retour')) {
+            document.getElementById('annuaire').innerHTML = '';
+            afficherToutesLesEntrees().then();
+        }
+    });
+});
+
 //reset la page
 document.getElementById('reset').addEventListener('click', () => {
     location.reload();
@@ -31,31 +41,18 @@ document.getElementById('reset').addEventListener('click', () => {
 
 //affiche les entrees par service
 document.getElementById('validerService').addEventListener('click', async function() {
-    const selectedService = document.getElementById('serviceSelect').value;
-    if (selectedService) {
-        const allEntries = await fetchAllEntries();
-        const filteredEntries = allEntries.filter(entree => entree.service.some(serv => serv.nomService === selectedService));
-        afficherAnnuaire(filteredEntries);
-    } else {
-        alert('Veuillez sélectionner un service.');
-    }
+    afficherEntreesParService().then();
 });
 
 //affiche les entrees par departement
 document.getElementById('validerDepartement').addEventListener('click', async function() {
-    const selectedDept = document.getElementById('departementSelect').value;
-    if (selectedDept) {
-
-        afficherAnnuaire(filteredEntries);
-    } else {
-        alert('Veuillez sélectionner un département.');
-    }
+    afficherTriParDepartement().then();
 });
 
 
 //affiche les entrees par recherche
 document.getElementById('validerRecherche').addEventListener('click', () => {
-    var search= document.getElementById('rechercheNom').value;
+    var search= document.getElementById('searchInput').value;
     afficherRechercheParNom(search).then();
 });
 
