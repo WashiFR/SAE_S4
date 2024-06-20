@@ -34,7 +34,8 @@ class GetEntreesByServiceAction extends AbstractAction
                         "id" => $entree['id'],
                         "nom" => $entree['nom'],
                         "prenom" => $entree['prenom'],
-                        "Départements" => $result_services
+                        "departements" => $result_services,
+                        "image" => $entree['img']
                     ],
                     "links" => [
                         "self" => [

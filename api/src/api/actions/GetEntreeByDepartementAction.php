@@ -41,7 +41,8 @@ class GetEntreeByDepartementAction extends AbstractAction
                         "nom" => $entree['nom'],
                         "prenom" => $entree['prenom'],
                         "services" => $result_services,
-                        "Départements" => $departments
+                        "departements" => $departments,
+                        "image" => $entree['img']
                     ],
                     "links" => [
                         "self" => [

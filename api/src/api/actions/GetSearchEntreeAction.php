@@ -43,7 +43,8 @@ class GetSearchEntreeAction extends AbstractAction
                         "nom" => $ent['nom'],
                         "prenom" => $ent['prenom'],
                         "departements" => $departments,
-                        "services" => $services
+                        "services" => $services,
+                        "image" => $ent['img']
                     ],
                     "links" => [
                         "self" => [
