@@ -38,13 +38,12 @@ class FilterDialog extends StatelessWidget {
               'Service',
               style: TextStyle(
                 color: Color.fromARGB(255, 223, 223, 223),
-                backgroundColor: Color.fromARGB(255, 33, 33, 33),
               ),
             ),
             items: services.map((service) {
               return DropdownMenuItem<String>(
-                value: service.nom,
-                child: Text(service.nom,
+                value: service.nomService,
+                child: Text(service.nomService,
                     style: const TextStyle(
                       fontSize: 12,
                       color: Color.fromARGB(255, 223, 223, 223),
@@ -64,8 +63,8 @@ class FilterDialog extends StatelessWidget {
             ),
             items: departements.map((departement) {
               return DropdownMenuItem<String>(
-                value: departement.nom,
-                child: Text(departement.nom,
+                value: departement.nomDep,
+                child: Text(departement.nomDep,
                     style: const TextStyle(
                       fontSize: 12,
                       color: Color.fromARGB(255, 223, 223, 223),
