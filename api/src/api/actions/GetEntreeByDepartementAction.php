@@ -23,33 +23,36 @@ class GetEntreeByDepartementAction extends AbstractAction
             foreach ($entrees as $entree){
                 $result_services = [];
                 $departments = [];
-                $sql_bis = $service_service->getServicesByEntreeId($entree['id']);
-                foreach ($sql_bis as $service){
-                    $result_services[] = [
-                        "NomService" => $service['nom']
-                    ];
-                }
-                $sql_dep = $service_service->getDepartementsByEntreeId($entree['id']);
-                foreach ($sql_dep as $departement){
-                    $departments[] = [
-                        "NomDep" => $departement['nom']
-                    ];
-                }
-                $result_entrees[] = [
-                    "entree" => [
-                        "id" => $entree['id'],
-                        "nom" => $entree['nom'],
-                        "prenom" => $entree['prenom'],
-                        "services" => $result_services,
-                        "departements" => $departments,
-                        "image" => $entree['img']
-                    ],
-                    "links" => [
-                        "self" => [
-                            "href" => "/entrees/" . $entree['id']
+                if($entree['publiee']){
+                    $sql_bis = $service_service->getServicesByEntreeId($entree['id']);
+                    foreach ($sql_bis as $service){
+                        $result_services[] = [
+                            "NomService" => $service['nom']
+                        ];
+                    }
+                    $sql_dep = $service_service->getDepartementsByEntreeId($entree['id']);
+                    foreach ($sql_dep as $departement){
+                        $departments[] = [
+                            "NomDep" => $departement['nom']
+                        ];
+                    }
+                    $result_entrees[] = [
+                        "entree" => [
+                            "id" => $entree['id'],
+                            "nom" => $entree['nom'],
+                            "prenom" => $entree['prenom'],
+                            "services" => $result_services,
+                            "departements" => $departments,
+                            "image" => $entree['img']
+                        ],
+                        "links" => [
+                            "self" => [
+                                "href" => "/entrees/" . $entree['id']
+                            ]
                         ]
-                    ]
-                ];
+                    ];
+                }
+
             }
         }
         $data = ['type' => 'collection', 'count' => count($entrees), 'entrees' => $result_entrees];
