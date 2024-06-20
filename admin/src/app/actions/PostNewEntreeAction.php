@@ -32,8 +32,20 @@ class PostNewEntreeAction extends AbstractAction
             throw new HttpBadRequestException($request, $e->getMessage());
         }
 
+        // Enregistrement de l'image dans le dossier public/assets/img
+        $img = $request->getUploadedFiles()['img'];
+        if (isset($img) && $img->getError() === UPLOAD_ERR_OK) {
+            $extention = pathinfo($img->getClientFilename(), PATHINFO_EXTENSION);
+            $fileName = uniqid() . '.' . $extention;
+            $img->moveTo(__DIR__ . '/../../../html/assets/img/' . $fileName);
+            $data['img'] = $fileName;
+        } else {
+            $data['img'] = 'default-profile.jpg';
+        }
+
         $entree_id = $this->entreeService->createEntree(
             [
+                'img' => $data['img'],
                 'nom' => $data['nom'],
                 'prenom' => $data['prenom'],
                 'fonction' => $data['fonction'],
