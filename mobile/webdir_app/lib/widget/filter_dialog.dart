@@ -45,7 +45,7 @@ class FilterDialog extends StatelessWidget {
                 value: service.nomService,
                 child: Text(service.nomService,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 20,
                       color: Color.fromARGB(255, 223, 223, 223),
                     )),
               );
@@ -66,7 +66,7 @@ class FilterDialog extends StatelessWidget {
                 value: departement.nomDep,
                 child: Text(departement.nomDep,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 20,
                       color: Color.fromARGB(255, 223, 223, 223),
                     )),
               );

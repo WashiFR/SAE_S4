@@ -17,7 +17,7 @@ class AnnuaireDetail extends StatelessWidget {
       path: email,
     );
     if (await canLaunchUrl(emailUri)) {
-      await launchUrl(emailUri);
+      await launchUrl(emailUri, mode: LaunchMode.externalApplication);
     } else {
       throw 'Could not launch $emailUri';
     }
@@ -29,7 +29,7 @@ class AnnuaireDetail extends StatelessWidget {
       path: phoneNumber,
     );
     if (await canLaunchUrl(phoneUri)) {
-      await launchUrl(phoneUri);
+      await launchUrl(phoneUri, mode: LaunchMode.externalApplication);
     } else {
       throw 'Could not launch $phoneUri';
     }
