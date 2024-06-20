@@ -7,6 +7,7 @@ import 'package:webdir_app/models/departement.dart';
 import 'package:webdir_app/screen/annuaire_preview.dart';
 import 'package:webdir_app/widget/search_name.dart';
 import 'package:webdir_app/widget/filter_dialog.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AnnuaireMaster extends StatefulWidget {
   @override
@@ -39,9 +40,10 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
 
   Future<List<Entree>> fetchEntrees({String query = ''}) async {
     final order = isAscending ? 'nom-asc' : 'nom-desc';
+    final baseUrl = dotenv.env['API_BASE_URL']!;
     final url = query.isEmpty
-        ? 'http://docketu.iutnc.univ-lorraine.fr:14201/api/entrees?sort=$order'
-        : 'http://docketu.iutnc.univ-lorraine.fr:14201/api/entrees/search?q=$query&sort=$order';
+        ? '$baseUrl/entrees?sort=$order'
+        : '$baseUrl/entrees/search?q=$query&sort=$order';
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
@@ -61,8 +63,8 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
   }
 
   Future<void> fetchServicesAndDepartments() async {
-    final servicesResponse = await http.get(
-        Uri.parse('http://docketu.iutnc.univ-lorraine.fr:14201/api/services'));
+    final baseUrl = dotenv.env['API_BASE_URL']!;
+    final servicesResponse = await http.get(Uri.parse('$baseUrl/services'));
     if (servicesResponse.statusCode == 200) {
       var jsonResponse = json.decode(servicesResponse.body);
       setState(() {
@@ -74,8 +76,8 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
       throw Exception('Failed to load services');
     }
 
-    final departmentsResponse = await http.get(Uri.parse(
-        'http://docketu.iutnc.univ-lorraine.fr:14201/api/departements'));
+    final departmentsResponse =
+        await http.get(Uri.parse('$baseUrl/departements'));
     if (departmentsResponse.statusCode == 200) {
       var jsonResponse = json.decode(departmentsResponse.body);
       setState(() {

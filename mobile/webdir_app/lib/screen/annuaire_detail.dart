@@ -66,12 +66,11 @@ class AnnuaireDetail extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Row(
+            const Row(
               children: [
-                const Icon(Icons.work,
-                    color: Color.fromARGB(255, 233, 233, 233)),
-                const SizedBox(width: 10),
-                const Text(
+                Icon(Icons.work, color: Color.fromARGB(255, 233, 233, 233)),
+                SizedBox(width: 10),
+                Text(
                   'Fonction:',
                   style: TextStyle(
                     fontSize: 14,
@@ -90,12 +89,11 @@ class AnnuaireDetail extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Divider(color: Color.fromARGB(255, 90, 90, 90)),
-            Row(
+            const Row(
               children: [
-                const Icon(Icons.business,
-                    color: Color.fromARGB(255, 223, 223, 223)),
-                const SizedBox(width: 10),
-                const Text(
+                Icon(Icons.business, color: Color.fromARGB(255, 223, 223, 223)),
+                SizedBox(width: 10),
+                Text(
                   'Numéro de bureau:',
                   style: TextStyle(
                     fontSize: 14,
@@ -114,12 +112,11 @@ class AnnuaireDetail extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Divider(color: Color.fromARGB(255, 90, 90, 90)),
-            Row(
+            const Row(
               children: [
-                const Icon(Icons.phone,
-                    color: Color.fromARGB(255, 223, 223, 223)),
-                const SizedBox(width: 10),
-                const Text(
+                Icon(Icons.phone, color: Color.fromARGB(255, 223, 223, 223)),
+                SizedBox(width: 10),
+                Text(
                   'Numéro fixe:',
                   style: TextStyle(
                     fontSize: 14,
@@ -138,11 +135,11 @@ class AnnuaireDetail extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Divider(color: Color.fromARGB(255, 90, 90, 90)),
-            Row(
+            const Row(
               children: [
-                const Icon(Icons.phone_android, color: Colors.white),
-                const SizedBox(width: 10),
-                const Text(
+                Icon(Icons.phone_android, color: Colors.white),
+                SizedBox(width: 10),
+                Text(
                   'Numéro mobile:',
                   style: TextStyle(
                     fontSize: 14,
@@ -165,11 +162,11 @@ class AnnuaireDetail extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Divider(color: Color.fromARGB(255, 90, 90, 90)),
-            Row(
+            const Row(
               children: [
-                const Icon(Icons.email, color: Colors.white),
-                const SizedBox(width: 10),
-                const Text(
+                Icon(Icons.email, color: Colors.white),
+                SizedBox(width: 10),
+                Text(
                   'Email:',
                   style: TextStyle(
                     fontSize: 14,

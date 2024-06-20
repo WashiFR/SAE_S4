@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webdir_app/models/entree.dart';
 import 'package:webdir_app/widget/initial_circle.dart';
 import 'package:webdir_app/screen/annuaire_detail.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -15,8 +16,9 @@ class AnnuairePreview extends StatelessWidget {
   }
 
   Future<Entree> fetchEntreeDetail(int id) async {
+    final baseUrl = dotenv.env['API_BASE_URL']!;
     final response = await http.get(
-      Uri.parse('http://docketu.iutnc.univ-lorraine.fr:14201/api/entrees/$id'),
+      Uri.parse('$baseUrl/entrees/$id'),
     );
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
@@ -43,10 +45,6 @@ class AnnuairePreview extends StatelessWidget {
       onTap: () async {
         try {
           Entree detailedEntree = await fetchEntreeDetail(entree.id);
-          print(detailedEntree.numBureau);
-          print(detailedEntree.numFixe);
-          print(detailedEntree.numMobile);
-          print(detailedEntree.fonction);
           Navigator.push(
             context,
             MaterialPageRoute(
