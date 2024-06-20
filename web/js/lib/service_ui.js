@@ -5,7 +5,12 @@ export async function afficherEntreesParService() {
     const selectedService = document.getElementById('serviceSelect').value;
     if (selectedService) {
         const allEntries = await fetchAllEntries();
-        afficherAnnuaire(allEntries.filter(entree => entree.(serv => serv.nomService === selectedService)));
+        const parsedEntries = parseServices(allEntries);
+        const filteredEntries = parsedEntries.filter(entree =>
+            entree.service && entree.service.some(serv => serv.NomService === selectedService)
+        );
+        console.log(filteredEntries);
+        afficherAnnuaire(filteredEntries);
     } else {
         alert('Veuillez sélectionner un service.');
     }

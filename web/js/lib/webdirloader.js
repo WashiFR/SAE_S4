@@ -22,7 +22,7 @@ export function parseEntries(data) {
         prenom: item.entree.prenom,
         href: item.links.self.href,
         departements : item.entree.departements,
-        service : item.entree.services[0].nomService,
+        service : item.entree.services,
     }));
 
     console.log(datamap);

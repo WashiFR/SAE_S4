@@ -5,19 +5,30 @@ import {
     parseEntries,
     fetchAllEntries, fetchDepartementById, fetchServices, parseServices
 } from './webdirloader.js';
+import {afficherAnnuaire} from "./dir_ui";
 
 export async function afficherTriParDepartement() {
+    const selectedDept = document.getElementById('departementSelect').value;
+    if (selectedDept) {
+        const allEntries = await fetchAllEntries();
+        const parsedEntries = parseDepartements(allEntries);
+        const filteredEntries = parsedEntries.filter(entree =>
+            entree.departement && entree.departement.some(dep => dep.nomDep === selectedDept)
+        );
+        afficherAnnuaire(filteredEntries);
+    } else {
+        alert('Veuillez sélectionner un département.');
+    }
+}
+
+/*export async function afficherTriParDepartement() {
     const annuaireDiv = document.getElementById('annuaire');
     annuaireDiv.innerHTML = ''; // Clear previous content
-
     try {
-
         const data = await fetchDepartements();
         const departements = parseDepartements(data);
         const navDetailsDiv = document.getElementById('nav_details');
         // Création de la String de la liste déroulante
-
-
             let list = `<select id="departementSelect">`
             list += `<option value="" disabled selected>Sélectionner un département</option>`
 
@@ -46,7 +57,7 @@ export async function afficherTriParDepartement() {
     } catch (error) {
         console.error('Error fetching or parsing departments:', error);
     }
-}
+}*/
 
 function afficherResultatsParDepartement(entrees, deptf) {
     const annuaireDiv = document.getElementById('annuaire');
