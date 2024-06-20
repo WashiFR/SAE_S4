@@ -1,48 +1,88 @@
-import { fetchAllEntries } from './webdirloader.js';
+import {
+    fetchDepartements,
+    parseDepartements,
+    fetchFilteredEntries,
+    parseEntries,
+    fetchAllEntries, fetchDepartementById, fetchServices, parseServices
+} from './webdirloader.js';
 
-export async function afficherEntreesParDepartement() {
+export async function afficherTriParDepartement() {
+    const annuaireDiv = document.getElementById('annuaire');
+    annuaireDiv.innerHTML = ''; // Clear previous content
+
     try {
-        const annuaire = await fetchAllEntries();
-        const entreesParDepartement = annuaire.reduce((acc, entree) => {
-            entree.departement.forEach(dept => {
-                const nomDep = dept.nomDep;
-                if (!acc[nomDep]) {
-                    acc[nomDep] = [];
-                }
-                acc[nomDep].push(entree);
-            });
-            return acc;
-        }, {});
 
-        afficherAnnuaireParDepartement(entreesParDepartement);
+        const data = await fetchDepartements();
+        const departements = parseDepartements(data);
+        const navDetailsDiv = document.getElementById('nav_details');
+        // Création de la String de la liste déroulante
+
+
+            let list = `<select id="departementSelect">`
+            list += `<option value="" disabled selected>Sélectionner un département</option>`
+
+            data.departements.forEach(dept => {
+
+                // Ajout des items de la liste déroulante
+                console.log(dept.departement)
+                list += `<option value="${dept.departement.id}">${dept.departement.nom}</option>`
+            })
+
+            // Intégration de la liste dans le HTML final
+            navDetailsDiv.innerHTML += list + `</select>
+        <button id="validerDepartement">Valider</button>`
+        debugger
+        const button = document.getElementById('validerDepartement');
+        button.addEventListener('click', async () => {
+            const selectedDeptId = document.getElementById('departementSelect').value;
+            if (selectedDeptId !== null) {
+                const data = await fetchAllEntries();
+                const entrees = parseEntries(data);
+                const dept = fetchDepartementById(selectedDeptId);
+                const deptf = parseDepartements(dept);
+                afficherResultatsParDepartement(entrees, deptf);
+            }
+        });
     } catch (error) {
-        console.error('Error displaying entries by department:', error);
+        console.error('Error fetching or parsing departments:', error);
     }
 }
 
-function afficherAnnuaireParDepartement(entreesParDepartement) {
+function afficherResultatsParDepartement(entrees, deptf) {
     const annuaireDiv = document.getElementById('annuaire');
-    annuaireDiv.innerHTML = ''; // Clear the current content
+    annuaireDiv.innerHTML = ''; // Clear previous content
 
-    for (const departement in entreesParDepartement) {
-        const deptDiv = document.createElement('div');
-        deptDiv.classList.add('departement');
-        deptDiv.innerHTML = `<h2>Département: ${departement}</h2>`;
-
-        entreesParDepartement[departement].forEach(entree => {
+    entrees.forEach(entree => {
+        let depte;
+        for(let i = 0; i < entree.departements.length; i++){
+           depte.add(entree.departements[i].NomDep)
+        }
+        if(depte.contains(deptf.nomDep)){
             const personDiv = document.createElement('div');
             personDiv.classList.add('entree');
             const dept = entree.departement.map(d => d.nomDep).join(', ');
             personDiv.innerHTML = `
-                <div id="entree">
-                <h2>${entree.nom}, ${entree.prenom}</h2>
-                <p>Département : ${dept}</p>
-                <p class="detailsEntree" data-id="${entree.id}">Voir la fiche détaillée</p>
-                </div>
-            `;
-            deptDiv.appendChild(personDiv);
-        });
+            <div id="entree">
+            <h2>${entree.nom}, ${entree.prenom}</h2>
+            <p>Département : ${dept}</p>
+            <p class="detailsEntree" data-id="${entree.id}">Voir la fiche détaillée</p>
+            </div>
+        `;
 
-        annuaireDiv.appendChild(deptDiv);
-    }
+            annuaireDiv.appendChild(personDiv);
+        }
+    });
+}
+
+export async function remplirDepartements() {
+    const data = await fetchDepartements();
+    const departements = parseDepartements(data);
+    console.log(departements);
+    const departementSelect = document.getElementById('departementSelect');
+    departements.forEach(departement => {
+        const option = document.createElement('option');
+        option.value = departement.NomDep;
+        option.text = departement.NomDep;
+        departementSelect.appendChild(option);
+    });
 }

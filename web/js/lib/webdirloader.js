@@ -2,7 +2,7 @@ import { API_URL } from './config.js';
 
 export async function fetchAllEntries() {
     try {
-        const response = await fetch(API_URL);
+        const response = await fetch(API_URL+'/entrees');
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
@@ -21,7 +21,7 @@ export function parseEntries(data) {
         nom: item.entree.nom,
         prenom: item.entree.prenom,
         href: item.links.self.href,
-        departement : item.entree.departements,
+        departements : item.entree.departements,
         service : item.entree.services[0].nomService,
     }));
 
@@ -31,7 +31,7 @@ export function parseEntries(data) {
 
 export async function fetchEntryById(id) {
     try {
-        const response = await fetch(`${API_URL}/${id}`);
+        const response = await fetch(`${API_URL}/entrees/${id}`);
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
@@ -60,7 +60,7 @@ export async function parseEntry(dataUser) {
 export async function fetchFilteredEntries(queryParams) {
     const query = new URLSearchParams(queryParams).toString();
     try {
-        const response = await fetch(`${API_URL}/search?${query}`);
+        const response = await fetch(`${API_URL}/entrees/search?${query}`);
         if (!response.ok) {
             throw new Error('Network response was not ok ' + response.statusText);
         }
@@ -70,3 +70,56 @@ export async function fetchFilteredEntries(queryParams) {
         throw error;
     }
 }
+
+export async function fetchDepartements() {
+    try {
+        const response = await fetch(`${API_URL}/departements`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Fetch error: ', error);
+        throw error;
+    }
+}
+
+export async function fetchDepartementById(id) {
+    try {
+        const response = await fetch(`${API_URL}/departements/${id}`);
+    } catch (error) {
+        console.error('Fetch error: ', error);
+        throw error;
+    }
+}
+
+    export function parseDepartements(data) {
+    //console.log(data);
+        return Object.values(data.departements).map(item => ({
+            id: item.departement.id,
+            NomDep: item.departement.nom,
+            description: item.departement.description
+        }));
+    }
+
+export async function fetchServices() {
+    try {
+        const response = await fetch(`${API_URL}/services`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Fetch error: ', error);
+    }
+}
+
+export function parseServices(data) {
+    //console.log(data);
+    return Object.values(data.services).map(item => ({
+        id: item.service.id,
+        NomService: item.service.nom,
+        description: item.service.description
+    }));
+}
+

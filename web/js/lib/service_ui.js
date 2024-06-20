@@ -1,20 +1,13 @@
-import { fetchAllEntries } from './webdirloader.js';
+import {fetchAllEntries, fetchServices, parseServices} from './webdirloader.js';
+import {afficherAnnuaire} from "./dir_ui.js";
 
 export async function afficherEntreesParService() {
-    try {
-        const annuaire = await fetchAllEntries();
-        const entreesParService = annuaire.reduce((acc, entree) => {
-            const service = entree.service;
-            if (!acc[service]) {
-                acc[service] = [];
-            }
-            acc[service].push(entree);
-            return acc;
-        }, {});
-
-        afficherAnnuaireParService(entreesParService);
-    } catch (error) {
-        console.error('Error displaying entries by service:', error);
+    const selectedService = document.getElementById('serviceSelect').value;
+    if (selectedService) {
+        const allEntries = await fetchAllEntries();
+        afficherAnnuaire(allEntries.filter(entree => entree.(serv => serv.nomService === selectedService)));
+    } else {
+        alert('Veuillez sélectionner un service.');
     }
 }
 
@@ -43,4 +36,18 @@ function afficherAnnuaireParService(entreesParService) {
 
         annuaireDiv.appendChild(serviceDiv);
     }
+}
+
+export async function remplirServices() {
+    const data = await fetchServices();
+    const services = parseServices(data);
+    const serviceSelect = document.getElementById('serviceSelect');
+    //console.log(services);
+    services.forEach(item =>  {
+        const option = document.createElement('option');
+        option.value = item.NomService;
+        option.text = item.NomService;
+        serviceSelect.appendChild(option);
+    });
+
 }
