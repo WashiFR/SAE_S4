@@ -20,23 +20,25 @@
                 <input type="tel" name="num_mobile" id="num_mobile" placeholder="Numéro mobile" required>
             </div>
             <input type="email" name="email" id="email" placeholder="Email" required>
-            <label for="departements">Départements</label>
-            <div id="departements">
-                {% for departement in departements %}
-                    <label>
-                        <input type="checkbox" class="departement-checkbox" name="departements_id[]" value="{{ departement.id }}">
-                        {{ departement.nom }}
-                    </label><br>
-                {% endfor %}
-            </div>
-            <label for="services">Services</label>
-            <div id="services">
-                {% for service in services %}
-                    <label>
-                        <input type="checkbox" class="service-checkbox" name="services_id[]" value="{{ service.id }}">
-                        {{ service.nom }}
-                    </label><br>
-                {% endfor %}
+            <div class="group-input-checkbox">
+                <h4>Départements</h4>
+                <div id="departements">
+                    {% for departement in departements %}
+                        <label>
+                            <input type="checkbox" class="departement-checkbox" name="departements_id[]" value="{{ departement.id }}">
+                            {{ departement.nom }}
+                        </label><br>
+                    {% endfor %}
+                </div>
+                <h4>Services</h4>
+                <div id="services">
+                    {% for service in services %}
+                        <label>
+                            <input type="checkbox" class="service-checkbox" name="services_id[]" value="{{ service.id }}">
+                            {{ service.nom }}
+                        </label><br>
+                    {% endfor %}
+                </div>
             </div>
             <input type="hidden" name="csrf" value="{{ csrf }}">
             <input type="submit" value="Créer">

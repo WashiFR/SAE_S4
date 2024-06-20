@@ -216,6 +216,23 @@ form div.group-input {
     gap: 5px;
 }
 
+form div.group-input-checkbox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+form div.group-input-checkbox h4 {
+    margin: 10px 0;
+}
+
+form div#departements, form div#services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 form div input {
     padding: 8px;
 }
