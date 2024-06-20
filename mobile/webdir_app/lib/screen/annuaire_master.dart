@@ -167,16 +167,16 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Annuaire', style: TextStyle(color: Colors.white)),
+        title: const Text('Annuaire', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.grey[900],
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         actions: [
           IconButton(
             icon: Icon(isAscending ? Icons.arrow_upward : Icons.arrow_downward),
             onPressed: toggleSortOrder,
           ),
           IconButton(
-            icon: Icon(Icons.filter_list),
+            icon: const Icon(Icons.filter_list),
             onPressed: openFilterDialog,
           ),
         ],
@@ -204,7 +204,7 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
                       return Column(
                         children: [
                           AnnuairePreview(entree: filteredEntrees[index]),
-                          Divider(color: const Color.fromARGB(255, 90, 90, 90)),
+                          const Divider(color: Color.fromARGB(255, 90, 90, 90)),
                         ],
                       );
                     },
@@ -212,7 +212,7 @@ class _AnnuaireMasterState extends State<AnnuaireMaster> {
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 }
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               },
             ),
           ),
