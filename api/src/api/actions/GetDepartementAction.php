@@ -18,7 +18,7 @@ class GetDepartementAction extends AbstractAction
         $departements = [];
         foreach ($sql as $dep) {
             $departements[] = [
-                "département" => [
+                "departement" => [
                     "id" => $dep['id'],
                     "nom" => $dep['nom'],
                     "etage" => $dep['etage'],
