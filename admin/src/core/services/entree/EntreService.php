@@ -68,6 +68,20 @@ class EntreService implements IEntreeService
         return $sql->toArray();
     }
 
+    public function publishEntree(int $id): void
+    {
+        $entree = Entree::find($id);
+        $entree->publiee = 1;
+        $entree->save();
+    }
+
+    public function unpublishEntree(int $id): void
+    {
+        $entree = Entree::find($id);
+        $entree->publiee = 0;
+        $entree->save();
+    }
+
     public function createEntree(array $data, array $dep_id, array $serv_id): int
     {
         $entree = new Entree();
@@ -79,6 +93,7 @@ class EntreService implements IEntreeService
         $entree->num_fixe = $data['num_fixe'];
         $entree->num_mobile = $data['num_mobile'];
         $entree->email = $data['email'];
+        $entree->publiee = 1;
         $entree->save();
         foreach ($dep_id as $id) {
             $entree->departements()->attach($id);

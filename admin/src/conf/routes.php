@@ -12,6 +12,8 @@ return function(App $app): App {
     $app->get('/entrees', \admin\app\actions\GetEntreesAction::class)->setName('entrees');
     $app->get('/entrees/create', \admin\app\actions\GetCreateNewEntreeAction::class)->setName('entrees.create');
     $app->post('/entrees/create', \admin\app\actions\PostNewEntreeAction::class)->setName('entrees.create');
+    $app->get('/entrees/publish/{id}', \admin\app\actions\GetPublishEntreeAction::class)->setName('entrees.publish');
+    $app->get('/entrees/unpublish/{id}', \admin\app\actions\GetUnpublishEntreeAction::class)->setName('entrees.unpublish');
 
     // ### Routes des Services ###
     $app->get('/services/create', \admin\app\actions\GetCreateNewServiceAction::class)->setName('services.create');
