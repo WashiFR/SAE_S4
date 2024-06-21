@@ -59,7 +59,7 @@ services:
       - webdir
 
   webjs:
-    image: nginx-alpine
+    image: nginx:latest
     volumes:
       - ./web:/usr/share/nginx/html
     ports:
