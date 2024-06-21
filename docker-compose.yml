@@ -59,13 +59,11 @@ services:
       - webdir
 
   webjs:
-    image: node
+    image: nginx-alpine
     volumes:
-      - ./web:/var/www/html
+      - ./web:/usr/shar/nginx/html
     ports:
-      - "14204:3000"
-    depends_on:
-      - json-server
+      - "14204:80"
     networks:
       - webdir
 
