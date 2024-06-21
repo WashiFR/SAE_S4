@@ -10,7 +10,7 @@ SAE Atelier de développement d’application web Semestre 4
 * Admin : http://docketu.iutnc.univ-lorraine.fr:14200
 * Api : http://docketu.iutnc.univ-lorraine.fr:14201
 * BD : http://docketu.iutnc.univ-lorraine.fr:14203
-* Web JS :
+* Web JS : http://docketu.iutnc.univ-lorraine.fr:14204
 
 ## Github
 
