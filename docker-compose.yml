@@ -61,7 +61,7 @@ services:
   webjs:
     image: nginx-alpine
     volumes:
-      - ./web:/usr/shar/nginx/html
+      - ./web:/usr/share/nginx/html
     ports:
       - "14204:80"
     networks:
