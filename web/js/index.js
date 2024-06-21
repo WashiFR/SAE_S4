@@ -3,8 +3,6 @@ import { afficherFicheDetails } from './lib/fiche_ui.js';
 import {afficherEntreesParService, remplirServices} from './lib/service_ui.js';
 import {afficherTriParDepartement, remplirDepartements} from './lib/departement_ui.js';
 import { afficherRechercheParNom } from './lib/recherche_ui.js';
-import {fetchAllEntries} from "./lib/webdirloader.js";
-import {afficherAnnuaire} from "./lib/dir_ui.js";
 
 
 // affiche les entrees et remplit les select
@@ -49,14 +47,6 @@ document.getElementById('validerDepartement').addEventListener('click', async fu
     afficherTriParDepartement().then();
 });
 
-
-// recherche par nom
-// document.getElementById('validerRecherche').addEventListener('click', () => {
-//     var search= document.getElementById('searchInput').value;
-//     afficherRechercheParNom(search).then();
-// });
-
-
 document.getElementById('searchInput').addEventListener('input', () => {
     debugger
     var search= document.getElementById('searchInput').value;
@@ -65,7 +55,6 @@ document.getElementById('searchInput').addEventListener('input', () => {
     } else {
         afficherToutesLesEntrees().then();
     }
-
 });
 
 

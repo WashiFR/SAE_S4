@@ -34,7 +34,7 @@ export function afficherAnnuaire(annuaire) {
             cpt++
             servtxt +=`${serv.NomService}` + (cpt < entree.service.length ? ', ' : '')
         });
-        personDiv.innerHTML +=servtxt+`</p><p class="detailsEntree" data-id="${entree.id}">Voir la fiche détaillée</p>
+        personDiv.innerHTML +=servtxt+`</p><p class="detailsEntree" data-id="${entree.id}">Voir la fiche détaillée <i class="fa fa-search"></i></p>
         </div>`
         annuaireDiv.appendChild(personDiv);
     });

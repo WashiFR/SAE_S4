@@ -15,33 +15,65 @@ header {
 header h1 {
     font-size: 3em;
     font-weight: 700;
-    text-align:center;
-    margin-bottom:2vh;
+    text-align: center;
+    margin-bottom: 2vh;
     padding-bottom: 3vh;
 }
 
-nav ul {
-    list-style-type: none;
-    padding: 0;
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-nav ul li {
-    display: inline;
-    margin: 0 1vw;
+#filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /*gap: 2vw; Espacement entre chaque groupe de filtres */
+    margin-top: 2vh;
 }
 
-nav ul li a {
-    color: #fff;
-    background-color: #007BFF;
-    padding: 1vh 2vw;
-    text-decoration: none;
+#filters > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2vh; /* Espacement entre les fonctionnalités */
+}
+
+#filters select,
+#filters input,
+#filters button {
+    margin: 0.5vh 0;
+    padding: 1vh 1.5vw;
     border-radius: 0.5em;
     font-size: 1em;
 }
 
-nav ul li a:hover {
-    background-color: #0056b3;
+#filters select,
+#filters input {
+    width: 15vw;
+    min-width: 200px;
+    max-width: 300px;
+    margin-left:2vw;
+    border: 0.1vw solid #ccc;
+    color: #000;
+}
+
+#filters button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#filters button:hover {
+    background-color: #0056b3;
+}
+
+#filters #reset {
+    margin-left:2vw;
 }
 
 #annuaire {

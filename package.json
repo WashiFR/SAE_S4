@@ -1,0 +1,8 @@
+{
+  "name": "SAE_S4",
+  "version": "1.0.0",
+  "dependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "font-awesome": "^4.7.0"
+  }
+}

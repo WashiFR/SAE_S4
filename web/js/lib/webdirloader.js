@@ -95,14 +95,6 @@ export async function fetchDepartementById(id) {
     export function parseDepartements(data) {
 
     return data.departements;
-    //     sortie.sort((a, b) => a.nom.localeCompare(b.nom));
-    //
-    // //console.log(data);
-    //     return Object.values(data.departements).map(item => ({
-    //         id: item.departement.id,
-    //         NomDep: item.departement.nom,
-    //         description: item.departement.description
-    //     }));
     }
 
 export async function fetchServices() {
