@@ -21,6 +21,3 @@ SAE Atelier de développement d’application web Semestre 4
 * superadmin@gmail.com : superadmin
 * admin@gmail.com : adminadmin
 
-* ## BD
-* user : root
-* password : tlgc
